@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android">
+    <state-list-animator>
+        <!-- Khi CardView được nhấn xuống -->
+        <item android:state_pressed="true">
+            <objectAnimator
+                android:propertyName="translationZ"
+                android:duration="150"
+                android:valueTo="12dp" />
+            <objectAnimator
+                android:propertyName="scaleX"
+                android:duration="150"
+                android:valueTo="0.96" />
+            <objectAnimator
+                android:propertyName="scaleY"
+                android:duration="150"
+                android:valueTo="0.96" />
+        </item>
+        <!-- Khi CardView không được nhấn -->
+        <item>
+            <objectAnimator
+                android:propertyName="translationZ"
+                android:duration="150"
+                android:valueTo="0dp" />
+            <objectAnimator
+                android:propertyName="scaleX"
+                android:duration="150"
+                android:valueTo="1" />
+            <objectAnimator
+                android:propertyName="scaleY"
+                android:duration="150"
+                android:valueTo="1" />
+        </item>
+    </state-list-animator>
+
+</set>

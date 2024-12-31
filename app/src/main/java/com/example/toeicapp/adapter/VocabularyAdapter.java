@@ -29,31 +29,32 @@ public class VocabularyAdapter extends RecyclerView.Adapter<VocabularyAdapter.My
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(context).inflate(R.layout.item_vocabulary,parent,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_vocabulary, parent, false);
         return new MyViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        Vocabulary vocabulary=vocabularies.get(position);
-        holder.txt_word.setText(vocabulary.getWord().toString().trim());
-        holder.txt_pronunciation.setText(vocabulary.getPronunciation().toString().trim());
-        holder.txt_meaning.setText(vocabulary.getMeaning().toString().trim());
-        holder.audio_path.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MediaPlayer mediaPlayer=MediaPlayer.create(context, Uri.parse(vocabulary.getAudioPath().toString()));
-                mediaPlayer.start();
-            }
+        Vocabulary vocabulary = vocabularies.get(position);
+        String word = vocabulary.getWord().trim();
+        holder.txt_word.setText(word.substring(0, 1).toUpperCase() + word.substring(1));
+        holder.txt_pronunciation.setText(vocabulary.getPronunciation().trim());
+        holder.txt_meaning.setText(vocabulary.getMeaning().trim());
+        holder.audio_path.setOnClickListener(v -> {
+            holder.audio_path.setEnabled(false);
+            MediaPlayer mediaPlayer = MediaPlayer.create(context, Uri.parse(vocabulary.getAudioPath()));
+            mediaPlayer.start();
+            mediaPlayer.setOnCompletionListener(mp -> holder.audio_path.setEnabled(true));
         });
     }
+
     @Override
     public int getItemCount() {
         return vocabularies.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        private TextView txt_word, txt_pronunciation,txt_meaning;
+        private TextView txt_word, txt_pronunciation, txt_meaning;
         private ImageView audio_path;
 
         public MyViewHolder(@NonNull View itemView) {

@@ -6,7 +6,6 @@
     android:fillViewport="true">
 
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,14 +18,15 @@
             android:layout_margin="8dp"
             android:elevation="4dp"
             app:cardCornerRadius="8dp">
+
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/animationView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:lottie_rawRes="@raw/study"
                 android:scaleType="fitXY"
                 app:lottie_autoPlay="true"
-                app:lottie_loop="true"/>
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/study" />
         </androidx.cardview.widget.CardView>
 
         <!-- Banner -->
@@ -56,6 +56,7 @@
                 android:layout_columnWeight="1"
                 android:layout_margin="8dp"
                 android:elevation="4dp"
+                android:foreground="?android:attr/selectableItemBackground"
                 app:cardCornerRadius="8dp">
 
                 <LinearLayout
@@ -86,6 +87,7 @@
                 android:layout_columnWeight="1"
                 android:layout_margin="8dp"
                 android:elevation="4dp"
+                android:foreground="?android:attr/selectableItemBackground"
                 app:cardCornerRadius="8dp">
 
                 <LinearLayout
@@ -136,6 +138,7 @@
                 android:layout_columnWeight="1"
                 android:layout_margin="8dp"
                 android:elevation="4dp"
+                android:foreground="?android:attr/selectableItemBackground"
                 app:cardCornerRadius="8dp">
 
                 <LinearLayout
@@ -166,6 +169,7 @@
                 android:layout_columnWeight="1"
                 android:layout_margin="8dp"
                 android:elevation="4dp"
+                android:foreground="?android:attr/selectableItemBackground"
                 app:cardCornerRadius="8dp">
 
                 <LinearLayout
@@ -200,6 +204,7 @@
             android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold" />
+
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -207,12 +212,12 @@
             android:layout_margin="8dp"
             android:elevation="4dp"
             app:cardCornerRadius="8dp">
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"
-                android:layout_margin="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                />
+                android:layout_margin="5dp" />
         </androidx.cardview.widget.CardView>
         <!-- RecyclerView for lịch sử -->
 
