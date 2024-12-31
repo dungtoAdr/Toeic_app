@@ -13,7 +13,7 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import com.example.toeicapp.R;
-import com.example.toeicapp.activty.VocabularyActivity;
+import com.example.toeicapp.activty.TopicActivity;
 
 public class FragmentHome extends Fragment {
 
@@ -41,7 +41,7 @@ public class FragmentHome extends Fragment {
         item_vocabulary.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getContext(), VocabularyActivity.class);
+                Intent intent=new Intent(getContext(), TopicActivity.class);
                 startActivity(intent);
             }
         });
