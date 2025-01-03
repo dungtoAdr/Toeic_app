@@ -15,11 +15,12 @@ import com.example.toeicapp.R;
 import com.example.toeicapp.activty.VocabularyActivity;
 import com.example.toeicapp.model.Topic;
 
+import java.text.MessageFormat;
 import java.util.List;
 
 public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.MyViewHolder> {
-    private Context context;
-    private List<Topic> topics;
+    private final Context context;
+    private final List<Topic> topics;
 
     public TopicAdapter(Context context, List<Topic> topics) {
         this.context = context;
@@ -36,18 +37,15 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.MyViewHolder
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Topic topic=topics.get(position);
-        holder.txt_id.setText(topic.getId()+"");
-        holder.txt_name.setText(topic.getName().toString());
-        holder.setItemClickListener(new ItemClickListener() {
-            @Override
-            public void onClick(View view, int position, boolean isLongClick) {
-                if (!isLongClick){
-                    Intent intent=new Intent(context, VocabularyActivity.class);
-                    intent.putExtra("topic_id",topic.getId());
-                    intent.putExtra("topic_name",topic.getName().toString());
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    context.startActivity(intent);
-                }
+        holder.txt_id.setText(MessageFormat.format("{0}", topic.getId()));
+        holder.txt_name.setText(topic.getName());
+        holder.setItemClickListener((view, position1, isLongClick) -> {
+            if (!isLongClick){
+                Intent intent=new Intent(context, VocabularyActivity.class);
+                intent.putExtra("topic_id",topic.getId());
+                intent.putExtra("topic_name",topic.getName());
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
             }
         });
     }
@@ -57,8 +55,9 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.MyViewHolder
         return topics.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private TextView txt_id,txt_name;
+    public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        private final TextView txt_id;
+        private final TextView txt_name;
         private ItemClickListener itemClickListener;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);

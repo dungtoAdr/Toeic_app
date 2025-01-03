@@ -4,7 +4,6 @@ import com.example.toeicapp.model.QuestionModel;
 import com.example.toeicapp.model.Topics;
 import com.example.toeicapp.model.Vocabularies;
 
-import java.util.List;
 
 import io.reactivex.rxjava3.core.Observable;
 import retrofit2.http.GET;

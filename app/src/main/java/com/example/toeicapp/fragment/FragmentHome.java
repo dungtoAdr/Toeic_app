@@ -1,7 +1,6 @@
 package com.example.toeicapp.fragment;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +15,6 @@ import androidx.fragment.app.Fragment;
 import com.example.toeicapp.R;
 import com.example.toeicapp.activty.GrammarActivity;
 import com.example.toeicapp.activty.TopicActivity;
-import com.example.toeicapp.activty.WebActivity;
 
 public class FragmentHome extends Fragment {
 
@@ -34,48 +32,32 @@ public class FragmentHome extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         initView(view);
         onClickItemReading();
-        onClickItemLisening();
+        onClickItemListening();
         onCLickItemVocabulary();
         onCLickItemGrammar();
 
     }
 
     private void onCLickItemVocabulary() {
-        item_vocabulary.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(getContext(), TopicActivity.class);
-                startActivity(intent);
-            }
+        item_vocabulary.setOnClickListener(v -> {
+            Intent intent=new Intent(getContext(), TopicActivity.class);
+            startActivity(intent);
         });
     }
 
     private void onCLickItemGrammar() {
-        item_grammar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(getContext(), GrammarActivity.class);
-                startActivity(intent);
-            }
+        item_grammar.setOnClickListener(v -> {
+            Intent intent=new Intent(getContext(), GrammarActivity.class);
+            startActivity(intent);
         });
     }
 
-    private void onClickItemLisening() {
-        item_listening.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getContext(), "Listening", Toast.LENGTH_SHORT).show();
-            }
-        });
+    private void onClickItemListening() {
+        item_listening.setOnClickListener(v -> Toast.makeText(getContext(), "Listening", Toast.LENGTH_SHORT).show());
     }
 
     private void onClickItemReading() {
-        item_reading.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getContext(), "Reading", Toast.LENGTH_SHORT).show();
-            }
-        });
+        item_reading.setOnClickListener(v -> Toast.makeText(getContext(), "Reading", Toast.LENGTH_SHORT).show());
     }
 
     private void initView(View view) {

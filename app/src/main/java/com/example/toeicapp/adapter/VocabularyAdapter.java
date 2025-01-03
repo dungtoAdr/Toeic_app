@@ -15,11 +15,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.toeicapp.R;
 import com.example.toeicapp.model.Vocabulary;
 
+import java.text.MessageFormat;
 import java.util.List;
 
 public class VocabularyAdapter extends RecyclerView.Adapter<VocabularyAdapter.MyViewHolder> {
-    private Context context;
-    private List<Vocabulary> vocabularies;
+    private final Context context;
+    private final List<Vocabulary> vocabularies;
 
     public VocabularyAdapter(Context context, List<Vocabulary> vocabularies) {
         this.context = context;
@@ -37,7 +38,7 @@ public class VocabularyAdapter extends RecyclerView.Adapter<VocabularyAdapter.My
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Vocabulary vocabulary = vocabularies.get(position);
         String word = vocabulary.getWord().trim();
-        holder.txt_word.setText(word.substring(0, 1).toUpperCase() + word.substring(1));
+        holder.txt_word.setText(MessageFormat.format("{0}{1}", word.substring(0, 1).toUpperCase(), word.substring(1)));
         holder.txt_pronunciation.setText(vocabulary.getPronunciation().trim());
         holder.txt_meaning.setText(vocabulary.getMeaning().trim());
         holder.audio_path.setOnClickListener(v -> {
@@ -53,9 +54,9 @@ public class VocabularyAdapter extends RecyclerView.Adapter<VocabularyAdapter.My
         return vocabularies.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
-        private TextView txt_word, txt_pronunciation, txt_meaning;
-        private ImageView audio_path;
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
+        private final TextView txt_word, txt_pronunciation, txt_meaning;
+        private final ImageView audio_path;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);

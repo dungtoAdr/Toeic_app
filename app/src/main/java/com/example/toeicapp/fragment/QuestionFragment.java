@@ -21,9 +21,6 @@ import java.io.IOException;
 
 public class QuestionFragment extends Fragment {
     private static final String ARG_QUESTION = "question";
-    private TextView questionText;
-    private ImageView questionImage;
-    private Button playAudioButton;
     private MediaPlayer mediaPlayer;
 
     public static QuestionFragment newInstance(Question question) {
@@ -43,9 +40,9 @@ public class QuestionFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        questionText = view.findViewById(R.id.txt_quest);
-        questionImage = view.findViewById(R.id.img_question);
-        playAudioButton = view.findViewById(R.id.btn_play_audio);
+        TextView questionText = view.findViewById(R.id.txt_quest);
+        ImageView questionImage = view.findViewById(R.id.img_question);
+        Button playAudioButton = view.findViewById(R.id.btn_play_audio);
 
         if (getArguments() != null) {
             Question question = (Question) getArguments().getSerializable(ARG_QUESTION);

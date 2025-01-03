@@ -1,33 +1,25 @@
 package com.example.toeicapp.activty;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.TextView;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.toeicapp.R;
 import com.example.toeicapp.adapter.GrammarAdapter;
-import com.example.toeicapp.adapter.TopicAdapter;
 import com.example.toeicapp.model.Grammar;
-import com.example.toeicapp.model.Topic;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class GrammarActivity extends AppCompatActivity {
-    private GrammarAdapter adapter;
-    private RecyclerView recyclerView;
-    private List<Grammar> grammars=new ArrayList<>();
+    private final List<Grammar> grammars=new ArrayList<>();
     private Toolbar toolbar;
-    private TextView toolbar_title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,10 +30,11 @@ public class GrammarActivity extends AppCompatActivity {
 
     }
 
+    @SuppressLint("SetTextI18n")
     private void initView() {
-        recyclerView=findViewById(R.id.recycler_view);
+        RecyclerView recyclerView = findViewById(R.id.recycler_view);
         toolbar=findViewById(R.id.tool_bar);
-        toolbar_title=findViewById(R.id.toolbar_title);
+        TextView toolbar_title = findViewById(R.id.toolbar_title);
         toolbar_title.setText("Ngữ Pháp");
         RecyclerView.LayoutManager layoutManager=new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(layoutManager);
@@ -53,19 +46,14 @@ public class GrammarActivity extends AppCompatActivity {
         grammars.add(topic2);
         grammars.add(topic3);
         grammars.add(topic4);
-        adapter=new GrammarAdapter(this,grammars);
+        GrammarAdapter adapter = new GrammarAdapter(this, grammars);
         recyclerView.setAdapter(adapter);
     }
 
     private void ActionToolBar() {
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("");
+        Objects.requireNonNull(getSupportActionBar()).setTitle("");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        toolbar.setNavigationOnClickListener(v -> finish());
     }
 }

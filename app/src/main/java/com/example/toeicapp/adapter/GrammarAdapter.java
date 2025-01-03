@@ -12,16 +12,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.toeicapp.Interface.ItemClickListener;
 import com.example.toeicapp.R;
-import com.example.toeicapp.activty.VocabularyActivity;
 import com.example.toeicapp.activty.WebActivity;
 import com.example.toeicapp.model.Grammar;
-import com.example.toeicapp.model.Topic;
 
+import java.text.MessageFormat;
 import java.util.List;
 
 public class GrammarAdapter extends RecyclerView.Adapter<GrammarAdapter.MyViewHolder> {
-    private Context context;
-    private List<Grammar> grammars;
+    private final Context context;
+    private final List<Grammar> grammars;
 
     public GrammarAdapter(Context context, List<Grammar> grammars) {
         this.context = context;
@@ -38,17 +37,14 @@ public class GrammarAdapter extends RecyclerView.Adapter<GrammarAdapter.MyViewHo
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Grammar grammar=grammars.get(position);
-        holder.txt_id.setText(grammar.getId()+"");
-        holder.txt_name.setText(grammar.getName().toString());
-        holder.setItemClickListener(new ItemClickListener() {
-            @Override
-            public void onClick(View view, int position, boolean isLongClick) {
-                if (!isLongClick){
-                    Intent intent=new Intent(context, WebActivity.class);
-                    intent.putExtra("url",grammar.getUrl());
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    context.startActivity(intent);
-                }
+        holder.txt_id.setText(MessageFormat.format("{0}", grammar.getId()));
+        holder.txt_name.setText(grammar.getName());
+        holder.setItemClickListener((view, position1, isLongClick) -> {
+            if (!isLongClick){
+                Intent intent=new Intent(context, WebActivity.class);
+                intent.putExtra("url",grammar.getUrl());
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
             }
         });
     }
@@ -58,8 +54,9 @@ public class GrammarAdapter extends RecyclerView.Adapter<GrammarAdapter.MyViewHo
         return grammars.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private TextView txt_id,txt_name;
+    public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        private final TextView txt_id;
+        private final TextView txt_name;
         private ItemClickListener itemClickListener;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);

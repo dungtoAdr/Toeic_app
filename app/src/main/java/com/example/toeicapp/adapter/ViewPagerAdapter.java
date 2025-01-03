@@ -18,7 +18,6 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
     @Override
     public Fragment createFragment(int position) {
         switch (position){
-            case 0:return new FragmentHome();
             case 1:return new FragmentTest();
             case 2:return new FragmentAccount();
             default:return new FragmentHome();

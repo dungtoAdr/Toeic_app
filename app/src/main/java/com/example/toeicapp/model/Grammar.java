@@ -4,8 +4,6 @@ public class Grammar {
     private int id;
     private String name;
     private String url;
-    public Grammar() {
-    }
 
     public Grammar(int id, String name, String url) {
         this.id = id;

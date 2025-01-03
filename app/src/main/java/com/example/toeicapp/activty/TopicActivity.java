@@ -1,9 +1,7 @@
 package com.example.toeicapp.activty;
 
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -16,6 +14,8 @@ import com.example.toeicapp.ritrofit.ApiToeic;
 import com.example.toeicapp.ritrofit.RetrofitClient;
 import com.example.toeicapp.utils.Utils;
 
+import java.util.Objects;
+
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
@@ -25,7 +25,7 @@ public class TopicActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private ApiToeic apiToeic;
     private TopicAdapter adapter;
-    private CompositeDisposable compositeDisposable=new CompositeDisposable();
+    private final CompositeDisposable compositeDisposable=new CompositeDisposable();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,9 +47,7 @@ public class TopicActivity extends AppCompatActivity {
                                 adapter=new TopicAdapter(getApplicationContext(),topics.getData());
                                 recyclerView.setAdapter(adapter);
                             }
-                        },throwable -> {
-                            Log.d("TAG_topic", throwable.getMessage());
-                        }
+                        },throwable -> Log.d("TAG_topic", Objects.requireNonNull(throwable.getMessage()))
                 ));
     }
 
@@ -61,14 +59,9 @@ public class TopicActivity extends AppCompatActivity {
 
     private void ActionToolBar() {
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("");
+        Objects.requireNonNull(getSupportActionBar()).setTitle("");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        toolbar.setNavigationOnClickListener(v -> finish());
     }
     @Override
     protected void onDestroy() {

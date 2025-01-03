@@ -3,6 +3,7 @@ package com.example.toeicapp.activty;
 import android.os.Bundle;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
@@ -16,6 +17,7 @@ import com.example.toeicapp.ritrofit.RetrofitClient;
 import com.example.toeicapp.utils.Utils;
 
 import java.util.List;
+import java.util.Objects;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
@@ -24,7 +26,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 public class SlideActivity extends FragmentActivity {
     private ViewPager2 viewPager;
     private ScreenSlidePagerAdapter pagerAdapter;
-    private CompositeDisposable compositeDisposable = new CompositeDisposable();
+    private final CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +48,7 @@ public class SlideActivity extends FragmentActivity {
                                 viewPager.setAdapter(pagerAdapter);
                             }
                         },
-                        throwable -> Log.d("API_ERROR", throwable.getMessage())
+                        throwable -> Log.d("API_ERROR", Objects.requireNonNull(throwable.getMessage()))
                 )
         );
     }
@@ -57,7 +59,7 @@ public class SlideActivity extends FragmentActivity {
         compositeDisposable.clear();
     }
 
-    private class ScreenSlidePagerAdapter extends FragmentStateAdapter {
+    private static class ScreenSlidePagerAdapter extends FragmentStateAdapter {
         private final List<Question> questions;
 
         public ScreenSlidePagerAdapter(FragmentActivity fa, List<Question> questions) {
@@ -65,6 +67,7 @@ public class SlideActivity extends FragmentActivity {
             this.questions = questions;
         }
 
+        @NonNull
         @Override
         public QuestionFragment createFragment(int position) {
             return QuestionFragment.newInstance(questions.get(position));
