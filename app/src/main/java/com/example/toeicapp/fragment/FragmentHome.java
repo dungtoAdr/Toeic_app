@@ -1,6 +1,7 @@
 package com.example.toeicapp.fragment;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +14,9 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import com.example.toeicapp.R;
+import com.example.toeicapp.activty.GrammarActivity;
 import com.example.toeicapp.activty.TopicActivity;
+import com.example.toeicapp.activty.WebActivity;
 
 public class FragmentHome extends Fragment {
 
@@ -51,7 +54,8 @@ public class FragmentHome extends Fragment {
         item_grammar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent=new Intent(getContext(), GrammarActivity.class);
+                startActivity(intent);
             }
         });
     }
