@@ -1,12 +1,17 @@
 package com.example.toeicapp.activty;
 
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.graphics.drawable.DrawableCompat;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -58,7 +63,7 @@ public class VocabularyActivity extends AppCompatActivity {
         recyclerView=findViewById(R.id.recycler_view);
         toolbar=findViewById(R.id.tool_bar);
         TextView toolbar_title = findViewById(R.id.toolbar_title);
-        RecyclerView.LayoutManager layoutManager=new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.VERTICAL,false);
+        RecyclerView.LayoutManager layoutManager=new GridLayoutManager(getApplicationContext(),2);
         recyclerView.setLayoutManager(layoutManager);
         String topic_name=getIntent().getStringExtra("topic_name");
         toolbar_title.setText(topic_name);

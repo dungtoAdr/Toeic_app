@@ -9,6 +9,7 @@
         <item name="colorPrimary">@color/tool_bar</item>
         <item name="android:windowBackground">@drawable/background_gradient</item>
         <item name="android:textColorPrimary">@color/text_primary</item>
+        <item name="homeAsUpIndicator">@drawable/baseline_arrow_back_24</item>
     </style>
     <style name="BottomNavigationViewStyle" parent="Widget.MaterialComponents.BottomNavigationView">
         <item name="itemBackground">@android:color/transparent</item> <!-- Loại bỏ nền -->

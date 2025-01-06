@@ -42,10 +42,12 @@ public class GrammarActivity extends AppCompatActivity {
         Grammar topic2=new Grammar(2,"Danh từ","https://langmaster.edu.vn/danh-tu-trong-tieng-anh");
         Grammar topic3=new Grammar(3,"Tính từ","https://langmaster.edu.vn/500-tinh-tu-tieng-anh-thong-dung-b8i352.html");
         Grammar topic4=new Grammar(4,"Trạng từ","https://langmaster.edu.vn/100-trang-tu-tieng-anh-thong-dung-nhat-a70i1495.html");
+        Grammar topic5=new Grammar(5,"Thì hiện tại tiếp diễn","https://langmaster.edu.vn/100-trang-tu-tieng-anh-thong-dung-nhat-a70i1495.html");
         grammars.add(topic);
         grammars.add(topic2);
         grammars.add(topic3);
         grammars.add(topic4);
+        grammars.add(topic5);
         GrammarAdapter adapter = new GrammarAdapter(this, grammars);
         recyclerView.setAdapter(adapter);
     }

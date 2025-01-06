@@ -8,52 +8,63 @@
     tools:context=".activty.TopicActivity">
 
 
-        <androidx.cardview.widget.CardView
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="4dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="8dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardBackgroundColor="@color/white"
-            android:layout_margin="8dp"
-            android:elevation="4dp"
-            app:cardCornerRadius="8dp">
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:padding="8dp"
+            android:weightSum="10">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+            <TextView
+                android:id="@+id/txt_id"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/background_rounded"
                 android:gravity="center"
-                android:weightSum="10"
-                android:orientation="horizontal"
-                android:padding="8dp">
+                android:text="1"
+                android:textColor="@color/tool_bar"
+                android:textSize="35sp"
+                app:layout_constraintEnd_toStartOf="@id/txt_name"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/txt_id"
-                    android:text="1"
-                    android:textColor="@color/black"
-                    android:textStyle="bold"
-                    android:textSize="50sp"
-                    android:layout_width="0dp"
-                    android:gravity="center"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:layout_gravity="center_vertical"
-                    android:src="@drawable/volume" />
 
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_weight="8"
-                    android:orientation="vertical"
-                    android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/txt_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="10dp"
+                android:text="New aasdasdasdasaasdasaas"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/img_view"
+                app:layout_constraintStart_toEndOf="@id/txt_id"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                    <TextView
-                        android:id="@+id/txt_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/black"
-                        android:textStyle="bold"
-                        android:gravity="center"
-                        android:layout_gravity="center"
-                        android:text="New"
-                        android:textSize="50sp" />
-                </LinearLayout>
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
+            <ImageView
+                android:id="@+id/img_view"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:src="@drawable/baseline_arrow_forward_ios_24"
+                app:layout_constraintStart_toEndOf="@id/txt_name"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
 </LinearLayout>
