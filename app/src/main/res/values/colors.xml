@@ -4,4 +4,8 @@
     <color name="white">#FFFFFFFF</color>
     <color name="tool_bar">#20C8A6</color>
     <color name="text_primary">#FF000000</color> <!-- Màu chữ chính -->
+    <color name="primary">#3F51B5</color> <!-- Màu xanh lam -->
+    <!-- Màu xám nhạt -->
+    <color name="gray_light">#F5F5F5</color> <!-- Màu xám nhạt -->
+
 </resources>

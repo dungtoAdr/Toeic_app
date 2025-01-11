@@ -6,16 +6,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activty.SlideActivity">
-    <TextView
-        android:id="@+id/txt_quest"
-        app:layout_constraintTop_toTopOf="parent"
-        android:text="ABC"
-        android:textSize="25sp"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/tool_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:background="@color/tool_bar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <TextView
+            android:id="@+id/toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="TOEIC"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </androidx.appcompat.widget.Toolbar>
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/view_pager"
-        app:layout_constraintTop_toBottomOf="@id/txt_quest"
+        app:layout_constraintTop_toBottomOf="@id/tool_bar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"

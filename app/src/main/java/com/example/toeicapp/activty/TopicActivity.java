@@ -10,8 +10,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.toeicapp.R;
 import com.example.toeicapp.adapter.TopicAdapter;
-import com.example.toeicapp.ritrofit.ApiToeic;
-import com.example.toeicapp.ritrofit.RetrofitClient;
+import com.example.toeicapp.retrofit.ApiToeic;
+import com.example.toeicapp.retrofit.RetrofitClient;
 import com.example.toeicapp.utils.Utils;
 
 import java.util.Objects;

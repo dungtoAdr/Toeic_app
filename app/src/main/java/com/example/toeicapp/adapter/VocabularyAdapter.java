@@ -1,5 +1,6 @@
 package com.example.toeicapp.adapter;
 
+
 import android.content.Context;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -7,12 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.toeicapp.R;
 import com.example.toeicapp.model.Vocabulary;
 
@@ -39,27 +40,25 @@ public class VocabularyAdapter extends RecyclerView.Adapter<VocabularyAdapter.My
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Vocabulary vocabulary = vocabularies.get(position);
         String word = vocabulary.getWord().trim();
-
-        // Hiển thị mặt trước
+        String audio = vocabulary.getAudioPath().trim();
         holder.txt_word.setText(MessageFormat.format("{0}{1}", word.substring(0, 1).toUpperCase(), word.substring(1)));
         holder.txt_pronunciation.setText(vocabulary.getPronunciation().trim());
-
-        // Lắng nghe sự kiện click để lật mặt của item
-        holder.itemView.setOnClickListener(v -> {
-            // Lật mặt trước và mặt sau
-            if (holder.frontLayout.getVisibility() == View.VISIBLE) {
-                holder.frontLayout.setVisibility(View.GONE);
-                holder.backLayout.setVisibility(View.VISIBLE);
-                MediaPlayer mediaPlayer=MediaPlayer.create(context,Uri.parse(vocabulary.getAudioPath()));
-                mediaPlayer.start();
-            } else {
-                holder.frontLayout.setVisibility(View.VISIBLE);
-                holder.backLayout.setVisibility(View.GONE);
-            }
-        });
-
-        // Hiển thị nghĩa từ khi mặt sau được lật
         holder.txt_meaning.setText(vocabulary.getMeaning().trim());
+        holder.audio_path.setOnClickListener(view -> {
+            MediaPlayer mediaPlayer=MediaPlayer.create(context, Uri.parse(audio));
+            if (mediaPlayer != null) {
+                if (mediaPlayer.isPlaying()) {
+                    mediaPlayer.stop();
+                    mediaPlayer.reset();
+                }
+                mediaPlayer.release();
+            }
+            mediaPlayer = MediaPlayer.create(context, Uri.parse(audio));
+            mediaPlayer.start();
+        });
+        holder.image_star.setOnClickListener(view ->{
+            Glide.with(context).load(R.drawable.star_yellow).into(holder.image_star);
+        });
     }
 
 
@@ -70,8 +69,7 @@ public class VocabularyAdapter extends RecyclerView.Adapter<VocabularyAdapter.My
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         private final TextView txt_word, txt_pronunciation, txt_meaning;
-        private final ImageView audio_path;
-        private final LinearLayout frontLayout, backLayout;
+        private final ImageView audio_path,image_star;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -79,9 +77,7 @@ public class VocabularyAdapter extends RecyclerView.Adapter<VocabularyAdapter.My
             txt_pronunciation = itemView.findViewById(R.id.txt_pronunciation);
             audio_path = itemView.findViewById(R.id.img_sound);
             txt_meaning = itemView.findViewById(R.id.txt_meaning);
-
-            frontLayout = itemView.findViewById(R.id.frontLayout);
-            backLayout = itemView.findViewById(R.id.backLayout);
+            image_star = itemView.findViewById(R.id.image_star);
         }
     }
 

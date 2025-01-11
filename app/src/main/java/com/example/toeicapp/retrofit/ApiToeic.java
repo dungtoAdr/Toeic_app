@@ -1,4 +1,5 @@
-package com.example.toeicapp.ritrofit;
+package com.example.toeicapp.retrofit;
+
 
 import com.example.toeicapp.model.QuestionModel;
 import com.example.toeicapp.model.Topics;
@@ -20,4 +21,5 @@ public interface ApiToeic {
     Observable<Vocabularies> getVoca(
             @Query("topic_id") int topic_id
     );
+
 }

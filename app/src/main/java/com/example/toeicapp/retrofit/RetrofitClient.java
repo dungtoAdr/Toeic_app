@@ -1,4 +1,4 @@
-package com.example.toeicapp.ritrofit;
+package com.example.toeicapp.retrofit;
 
 import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory;
 import retrofit2.Retrofit;

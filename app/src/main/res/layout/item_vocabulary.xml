@@ -3,34 +3,36 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="8dp"
-    android:layout_marginTop="8dp"
-    android:layout_marginEnd="8dp"
-    android:layout_marginBottom="8dp"
+    android:layout_marginStart="12dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginEnd="12dp"
+    android:layout_marginBottom="5dp"
     android:elevation="4dp"
     app:cardBackgroundColor="@color/white"
     app:cardCornerRadius="8dp">
 
-    <RelativeLayout
-        android:layout_margin="10dp"
+    <LinearLayout
+        android:id="@+id/frontLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:orientation="horizontal"
+        android:weightSum="10">
 
-        <!-- Mặt trước của item -->
+        <ImageView
+            android:id="@+id/img_sound"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_weight="2"
+            android:src="@drawable/volume" />
+
         <LinearLayout
-            android:id="@+id/frontLayout"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:visibility="visible">
-
-            <ImageView
-                android:id="@+id/img_sound"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:layout_gravity="center_vertical"
-                android:src="@drawable/volume" />
+            android:layout_marginStart="10dp"
+            android:layout_weight="6"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/txt_word"
@@ -47,29 +49,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="/nju/"
-                android:textColor="@color/black"
                 android:textSize="20sp" />
-
-        </LinearLayout>
-
-        <!-- Mặt sau của item (ẩn mặc định) -->
-        <LinearLayout
-            android:id="@+id/backLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:visibility="gone">
 
             <TextView
                 android:id="@+id/txt_meaning"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center"
                 android:text="Mới (Adj)"
                 android:textColor="@color/black"
                 android:textSize="25sp" />
+
         </LinearLayout>
 
-    </RelativeLayout>
+        <ImageView
+            android:id="@+id/image_star"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_weight="2"
+            android:src="@drawable/star" />
+    </LinearLayout>
+
 </androidx.cardview.widget.CardView>

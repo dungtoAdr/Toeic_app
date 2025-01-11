@@ -59,4 +59,6 @@ dependencies {
     implementation("com.squareup.picasso:picasso:2.8")
     //lottie
     implementation("com.airbnb.android:lottie:3.4.0")
+    //spech to text
+//    implementation("com.google.android.gms:play-services-speech:21.0.0")
 }
