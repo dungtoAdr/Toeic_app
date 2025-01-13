@@ -4,6 +4,25 @@ public class Grammar {
     private int id;
     private String name;
     private String url;
+    private boolean isListenning;
+
+    public boolean isListenning() {
+        return isListenning;
+    }
+    public void setListenning(boolean listenning) {
+        isListenning = listenning;
+    }
+
+    public Grammar(int id, String name, boolean isListenning) {
+        this.id = id;
+        this.name = name;
+        this.isListenning = isListenning;
+    }
+
+    public Grammar(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 
     public Grammar(int id, String name, String url) {
         this.id = id;

@@ -6,12 +6,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.toeicapp.Interface.ItemClickListener;
 import com.example.toeicapp.R;
+import com.example.toeicapp.activty.SlideActivity;
+import com.example.toeicapp.activty.SlideActivity1;
 import com.example.toeicapp.activty.WebActivity;
 import com.example.toeicapp.model.Grammar;
 
@@ -40,11 +43,36 @@ public class GrammarAdapter extends RecyclerView.Adapter<GrammarAdapter.MyViewHo
         holder.txt_id.setText(MessageFormat.format("{0}", grammar.getId()));
         holder.txt_name.setText(grammar.getName());
         holder.setItemClickListener((view, position1, isLongClick) -> {
-            if (!isLongClick){
-                Intent intent=new Intent(context, WebActivity.class);
-                intent.putExtra("url",grammar.getUrl());
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(intent);
+            if(grammar.getUrl()!=null) {
+                if (!isLongClick){
+                    Intent intent=new Intent(context, WebActivity.class);
+                    intent.putExtra("url",grammar.getUrl());
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent);
+                }
+            }else if(grammar.isListenning()){
+                switch (grammar.getId()){
+                    case 1:{
+                        Intent intent =new Intent(context, SlideActivity.class);
+                        context.startActivity(intent);
+                        break;
+                    }
+                    case 2:{
+                        Toast.makeText(context,grammar.getName(),Toast.LENGTH_SHORT).show();
+                        break;
+                    }
+                    case 3:{
+                        Intent intent =new Intent(context, SlideActivity1.class);
+                        context.startActivity(intent);
+                        break;
+                    }
+                    case 4:{
+                        Toast.makeText(context,grammar.getName(),Toast.LENGTH_SHORT).show();
+                        break;
+                    }
+                }
+            }else{
+                Toast.makeText(context,grammar.getName(),Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -2,6 +2,7 @@ package com.example.toeicapp.retrofit;
 
 
 import com.example.toeicapp.model.QuestionModel;
+import com.example.toeicapp.model.QuestionsModel;
 import com.example.toeicapp.model.Topics;
 import com.example.toeicapp.model.Vocabularies;
 
@@ -21,5 +22,8 @@ public interface ApiToeic {
     Observable<Vocabularies> getVoca(
             @Query("topic_id") int topic_id
     );
+
+    @GET("test_path3.php")
+    Observable<QuestionsModel> getPart3();
 
 }

@@ -1,8 +1,9 @@
 package com.example.toeicapp.model;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Questions {
+public class Questions implements Serializable {
     private String audio_path;
     private List<Question> questions;
 

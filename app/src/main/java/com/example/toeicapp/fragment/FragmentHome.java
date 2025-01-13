@@ -14,6 +14,9 @@ import androidx.fragment.app.Fragment;
 
 import com.example.toeicapp.R;
 import com.example.toeicapp.activty.GrammarActivity;
+import com.example.toeicapp.activty.ListenningActivity;
+import com.example.toeicapp.activty.ReadingActivity;
+import com.example.toeicapp.activty.SlideActivity;
 import com.example.toeicapp.activty.TopicActivity;
 
 public class FragmentHome extends Fragment {
@@ -53,11 +56,19 @@ public class FragmentHome extends Fragment {
     }
 
     private void onClickItemListening() {
-        item_listening.setOnClickListener(v -> Toast.makeText(getContext(), "Listening", Toast.LENGTH_SHORT).show());
+        item_listening.setOnClickListener(v -> {
+            Toast.makeText(getContext(), "Listening", Toast.LENGTH_SHORT).show();
+            Intent intent=new Intent(getContext(), ListenningActivity.class);
+            startActivity(intent);
+        });
     }
 
     private void onClickItemReading() {
-        item_reading.setOnClickListener(v -> Toast.makeText(getContext(), "Reading", Toast.LENGTH_SHORT).show());
+        item_reading.setOnClickListener(v -> {
+            Toast.makeText(getContext(), "Reading", Toast.LENGTH_SHORT).show();
+            Intent intent=new Intent(getContext(), ReadingActivity.class);
+            startActivity(intent);
+        });
     }
 
     private void initView(View view) {

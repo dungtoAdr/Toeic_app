@@ -50,7 +50,7 @@
 
             <!-- Items luyện tập -->
             <androidx.cardview.widget.CardView
-                android:id="@+id/item_reading"
+                android:id="@+id/item_listening"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
@@ -81,7 +81,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/item_listening"
+                android:id="@+id/item_reading"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
