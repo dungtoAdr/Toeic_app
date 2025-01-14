@@ -25,15 +25,14 @@ public class TopicActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private ApiToeic apiToeic;
     private TopicAdapter adapter;
-    private final CompositeDisposable compositeDisposable=new CompositeDisposable();
+    private final CompositeDisposable compositeDisposable = new CompositeDisposable();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_topic);
         initView();
         getData();
-        RecyclerView.LayoutManager layoutManager=new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
-        recyclerView.setLayoutManager(layoutManager);
         ActionToolBar();
     }
 
@@ -43,18 +42,20 @@ public class TopicActivity extends AppCompatActivity {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         topics -> {
-                            if(topics.isSuccess()){
-                                adapter=new TopicAdapter(getApplicationContext(),topics.getData());
+                            if (topics.isSuccess()) {
+                                adapter = new TopicAdapter(getApplicationContext(), topics.getData());
                                 recyclerView.setAdapter(adapter);
                             }
-                        },throwable -> Log.d("TAG_topic", Objects.requireNonNull(throwable.getMessage()))
+                        }, throwable -> Log.d("TAG_topic", Objects.requireNonNull(throwable.getMessage()))
                 ));
     }
 
     private void initView() {
-        apiToeic= RetrofitClient.getInstance(Utils.BASE_URL).create(ApiToeic.class);
-        toolbar=findViewById(R.id.tool_bar);
-        recyclerView=findViewById(R.id.recycler_view);
+        apiToeic = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiToeic.class);
+        toolbar = findViewById(R.id.tool_bar);
+        recyclerView = findViewById(R.id.recycler_view);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(layoutManager);
     }
 
     private void ActionToolBar() {
@@ -63,6 +64,7 @@ public class TopicActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(v -> finish());
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();

@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -40,7 +42,7 @@ public class QuestionFragment1 extends Fragment {
     public static QuestionFragment1 newInstance(Questions questions) {
         QuestionFragment1 fragment = new QuestionFragment1();
         Bundle args = new Bundle();
-        args.putSerializable(ARG_QUESTION, questions); // Ensure Question implements Serializable
+        args.putSerializable(ARG_QUESTION, questions);
         fragment.setArguments(args);
         return fragment;
     }
@@ -53,25 +55,28 @@ public class QuestionFragment1 extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        initView(view);
+        setupFragment();
 
-        btnPlayPause = view.findViewById(R.id.btn_play_pause);
-        btnRewind = view.findViewById(R.id.btn_rewind);
-        btnForward = view.findViewById(R.id.btn_forward);
-        seekBar = view.findViewById(R.id.seekBar);
-        tvCurrentTime = view.findViewById(R.id.tv_current_time);
-        tvTotalTime = view.findViewById(R.id.tv_total_time);
-        recyclerView =view.findViewById(R.id.recycler_view);
-        LinearLayoutManager layoutManager=new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
-        recyclerView.setLayoutManager(layoutManager);
+    }
 
+    private void setupFragment() {
         if (getArguments() != null) {
             Questions questions = (Questions) getArguments().getSerializable(ARG_QUESTION);
             if (questions != null) {
-                List<Question> questionList=questions.getQuestions();
-                QuestionAdapter questionAdapter=new QuestionAdapter(getContext(),questionList);
+                List<Question> questionList = questions.getQuestions();
+                QuestionAdapter questionAdapter = new QuestionAdapter(getContext(), questionList);
                 recyclerView.setAdapter(questionAdapter);
+                if (questions.getParagraph_path() != null) {
+                    ScrollView scrollView =getView().findViewById(R.id.scroll_paragraph);
+                    TextView paragraph_text = getView().findViewById(R.id.paragraph_text);
+                    scrollView.setVisibility(View.VISIBLE);
+                    paragraph_text.setText(questions.getParagraph_path());
+                }
                 // Cấu hình MediaPlayer với audio_path
                 if (questions.getAudio_path() != null) {
+                    LinearLayout line1 = getView().findViewById(R.id.line1);
+                    line1.setVisibility(View.VISIBLE);
                     initializeAudioPlayer(questions.getAudio_path());
                 } else {
                     btnPlayPause.setEnabled(false);
@@ -80,6 +85,19 @@ public class QuestionFragment1 extends Fragment {
             }
         }
     }
+
+    private void initView(View view) {
+        btnPlayPause = view.findViewById(R.id.btn_play_pause);
+        btnRewind = view.findViewById(R.id.btn_rewind);
+        btnForward = view.findViewById(R.id.btn_forward);
+        seekBar = view.findViewById(R.id.seekBar);
+        tvCurrentTime = view.findViewById(R.id.tv_current_time);
+        tvTotalTime = view.findViewById(R.id.tv_total_time);
+        recyclerView = view.findViewById(R.id.recycler_view);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(layoutManager);
+    }
+
 
     private void initializeAudioPlayer(String audioPath) {
         mediaPlayer = new MediaPlayer();
@@ -131,10 +149,12 @@ public class QuestionFragment1 extends Fragment {
                 }
 
                 @Override
-                public void onStartTrackingTouch(SeekBar seekBar) {}
+                public void onStartTrackingTouch(SeekBar seekBar) {
+                }
 
                 @Override
-                public void onStopTrackingTouch(SeekBar seekBar) {}
+                public void onStopTrackingTouch(SeekBar seekBar) {
+                }
             });
 
         } catch (IOException e) {

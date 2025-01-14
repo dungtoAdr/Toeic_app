@@ -13,25 +13,34 @@ import com.example.toeicapp.R;
 
 public class WebActivity extends AppCompatActivity {
     private WebView webView;
-    @SuppressLint("SetJavaScriptEnabled")
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web);
-        webView=findViewById(R.id.webview);
-        webView.setWebViewClient(new WebViewClient());
-        webView.setWebChromeClient(new WebChromeClient());
+        initView();
+        initData();
 
-        webView.getSettings().setJavaScriptEnabled(true);
+    }
 
-        String url=getIntent().getStringExtra("url");
-        if(url!=null){
+    private void initData() {
+        String url = getIntent().getStringExtra("url");
+        if (url != null) {
             webView.loadUrl(url);
-        }else{
-            Toast.makeText(getApplicationContext(),"Fail to load url",Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getApplicationContext(), "Fail to load url", Toast.LENGTH_SHORT).show();
         }
     }
-    // Đảm bảo khi bấm nút back sẽ thoát khỏi WebView nếu trang web đang được hiển thị
+
+    @SuppressLint("SetJavaScriptEnabled")
+    private void initView() {
+        webView = findViewById(R.id.webview);
+        webView.setWebViewClient(new WebViewClient());
+        webView.setWebChromeClient(new WebChromeClient());
+        webView.getSettings().setJavaScriptEnabled(true);
+
+    }
+
     @Override
     public void onBackPressed() {
         if (webView.canGoBack()) webView.goBack();

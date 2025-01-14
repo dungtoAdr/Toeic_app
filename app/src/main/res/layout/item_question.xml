@@ -4,8 +4,6 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-
-
     <RadioGroup
         android:id="@+id/radio_answer"
         android:layout_width="match_parent"
@@ -23,12 +21,19 @@
             android:text="Question Text"
             android:textSize="16sp"
             android:textStyle="bold" />
+        <ImageView
+            android:id="@+id/image_path"
+            android:visibility="gone"
+            android:scaleType="fitXY"
+            android:src="@drawable/rewind"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"/>
         <RadioButton
             android:id="@+id/radio_a"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="A"
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:buttonTint="@color/primary"
             android:textColor="@color/black"
             android:background="?attr/selectableItemBackground"
@@ -39,7 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="B"
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:buttonTint="@color/primary"
             android:textColor="@color/black"
             android:background="?attr/selectableItemBackground"
@@ -50,7 +55,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="C"
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:buttonTint="@color/primary"
             android:textColor="@color/black"
             android:background="?attr/selectableItemBackground"
@@ -61,7 +66,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="D"
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:buttonTint="@color/primary"
             android:textColor="@color/black"
             android:background="?attr/selectableItemBackground" />

@@ -8,13 +8,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
 import com.example.toeicapp.R;
 import com.example.toeicapp.model.Question;
 import com.squareup.picasso.Picasso;
@@ -27,9 +30,11 @@ public class QuestionFragment extends Fragment {
     private MediaPlayer mediaPlayer;
     private ImageButton btnPlayPause, btnRewind, btnForward;
     private SeekBar seekBar;
-    private TextView tvCurrentTime, tvTotalTime,txt_quest;
+    private TextView tvCurrentTime, tvTotalTime, text1,text2,text3,text4;
     private boolean isPlaying = false;
     private Handler handler = new Handler();
+    private TextView questionText;
+    private ImageView questionImage;
 
     public static QuestionFragment newInstance(Question question) {
         QuestionFragment fragment = new QuestionFragment();
@@ -47,36 +52,55 @@ public class QuestionFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        initView(view);
+        setupFragment();
+    }
 
-        TextView questionText = view.findViewById(R.id.txt_quest);
-        ImageView questionImage = view.findViewById(R.id.img_question);
-        btnPlayPause = view.findViewById(R.id.btn_play_pause);
-        btnRewind = view.findViewById(R.id.btn_rewind);
-        btnForward = view.findViewById(R.id.btn_forward);
-        seekBar = view.findViewById(R.id.seekBar);
-        tvCurrentTime = view.findViewById(R.id.tv_current_time);
-        tvTotalTime = view.findViewById(R.id.tv_total_time);
-        txt_quest = view.findViewById(R.id.txt_quest);
-        if(txt_quest.getText().toString().isEmpty()){
-            txt_quest.setVisibility(View.GONE);
-        }
-
+    private void setupFragment() {
         if (getArguments() != null) {
             Question question = (Question) getArguments().getSerializable(ARG_QUESTION);
             if (question != null) {
-                questionText.setText(question.getQuestion_text());
+                if (question.getQuestion_text()!=null){
+                    CardView card_view_part5=getView().findViewById(R.id.card_view_part5);
+                    card_view_part5.setVisibility(View.VISIBLE);
+                    questionText.setText(question.getQuestion_text());
+                    text1.setText("A."+question.getOption_a());
+                    text2.setText("B."+question.getOption_b());
+                    text3.setText("C."+question.getOption_c());
+                    text4.setText("D."+question.getOption_d());
+                }
                 if (question.getImage_path() != null) {
-                    Picasso.get().load(question.getImage_path()).into(questionImage);
+                    Glide.with(getContext()).load(question.getImage_path()).into(questionImage);
                 }
 
                 // Cấu hình MediaPlayer với audio_path
                 if (question.getAudio_path() != null) {
+                    LinearLayout linearLayout= (LinearLayout) getView().findViewById(R.id.line1);
+                    linearLayout.setVisibility(View.VISIBLE);
                     initializeAudioPlayer(question.getAudio_path());
                 } else {
                     btnPlayPause.setEnabled(false);
                     seekBar.setEnabled(false);
                 }
             }
+        }
+    }
+
+    private void initView(View view) {
+        questionText = view.findViewById(R.id.txt_quest);
+        questionImage = view.findViewById(R.id.img_question);
+        btnPlayPause = view.findViewById(R.id.btn_play_pause);
+        btnRewind = view.findViewById(R.id.btn_rewind);
+        btnForward = view.findViewById(R.id.btn_forward);
+        seekBar = view.findViewById(R.id.seekBar);
+        tvCurrentTime = view.findViewById(R.id.tv_current_time);
+        tvTotalTime = view.findViewById(R.id.tv_total_time);
+        text1 = view.findViewById(R.id.text1);
+        text2 = view.findViewById(R.id.text2);
+        text3 = view.findViewById(R.id.text3);
+        text4 = view.findViewById(R.id.text4);
+        if (questionText.getText().toString().isEmpty()) {
+            questionText.setVisibility(View.GONE);
         }
     }
 
@@ -130,10 +154,12 @@ public class QuestionFragment extends Fragment {
                 }
 
                 @Override
-                public void onStartTrackingTouch(SeekBar seekBar) {}
+                public void onStartTrackingTouch(SeekBar seekBar) {
+                }
 
                 @Override
-                public void onStopTrackingTouch(SeekBar seekBar) {}
+                public void onStopTrackingTouch(SeekBar seekBar) {
+                }
             });
 
         } catch (IOException e) {

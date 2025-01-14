@@ -12,8 +12,26 @@ import retrofit2.http.GET;
 import retrofit2.http.Query;
 
 public interface ApiToeic {
-    @GET("test_part1.php")
-    Observable<QuestionModel> getQuestion();
+    @GET("part1.php")
+    Observable<QuestionModel> getPart1();
+
+    @GET("part2.php")
+    Observable<QuestionModel> getPart2();
+
+    @GET("part3.php")
+    Observable<QuestionsModel> getPart3();
+
+    @GET("part4.php")
+    Observable<QuestionsModel> getPart4();
+
+    @GET("part5.php")
+    Observable<QuestionModel> getPart5();
+
+    @GET("part6.php")
+    Observable<QuestionsModel> getPart6();
+
+    @GET("part7.php")
+    Observable<QuestionsModel> getPart7();
 
     @GET("get_topics.php")
     Observable<Topics> getTopics();
@@ -23,7 +41,6 @@ public interface ApiToeic {
             @Query("topic_id") int topic_id
     );
 
-    @GET("test_path3.php")
-    Observable<QuestionsModel> getPart3();
+
 
 }
