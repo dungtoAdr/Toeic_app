@@ -43,12 +43,21 @@ public class TopicActivity extends AppCompatActivity {
                 .subscribe(
                         topics -> {
                             if (topics.isSuccess()) {
+                                // Dữ liệu trả về hợp lệ
                                 adapter = new TopicAdapter(getApplicationContext(), topics.getData());
                                 recyclerView.setAdapter(adapter);
+                            } else {
+                                // Thông báo lỗi nếu không thành công
+                                Log.d("TAG_topic", "Lỗi: " + topics.getMessage());
                             }
-                        }, throwable -> Log.d("TAG_topic", Objects.requireNonNull(throwable.getMessage()))
+                        },
+                        throwable -> {
+                            // Xử lý lỗi
+                            Log.d("TAG_topic", "Lỗi: " + throwable.getMessage());
+                        }
                 ));
     }
+
 
     private void initView() {
         apiToeic = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiToeic.class);

@@ -17,6 +17,19 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".activty.ResultActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activty.SplashActivity"
+            android:exported="true"
+            android:theme="@style/SplashscreenTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".activty.ReadingActivity"
             android:exported="false" />
         <activity
@@ -36,13 +49,7 @@
             android:exported="false" />
         <activity
             android:name=".activty.MainActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:exported="true" />
         <activity
             android:name=".activty.SlideActivity"
             android:exported="true" />

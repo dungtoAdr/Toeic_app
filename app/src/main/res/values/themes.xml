@@ -15,4 +15,8 @@
         <item name="itemBackground">@android:color/transparent</item> <!-- Loại bỏ nền -->
         <item name="itemRippleColor">@null</item>
     </style>
+
+    <style name="SplashscreenTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash_activity</item>
+    </style>
 </resources>

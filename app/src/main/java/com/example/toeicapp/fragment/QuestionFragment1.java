@@ -6,12 +6,14 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,10 +21,12 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.toeicapp.R;
 import com.example.toeicapp.adapter.QuestionAdapter;
 import com.example.toeicapp.model.Question;
 import com.example.toeicapp.model.Questions;
+import com.example.toeicapp.utils.Utils;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
@@ -38,7 +42,7 @@ public class QuestionFragment1 extends Fragment {
     private boolean isPlaying = false;
     private Handler handler = new Handler();
     private RecyclerView recyclerView;
-
+    private Button button;
     public static QuestionFragment1 newInstance(Questions questions) {
         QuestionFragment1 fragment = new QuestionFragment1();
         Bundle args = new Bundle();
@@ -73,6 +77,12 @@ public class QuestionFragment1 extends Fragment {
                     scrollView.setVisibility(View.VISIBLE);
                     paragraph_text.setText(questions.getParagraph_path());
                 }
+                Question question=questionList.get(0);
+                if(question.getImage_path()!=null){
+                    ImageView imageView=getView().findViewById(R.id.image_path);
+                    imageView.setVisibility(View.VISIBLE);
+                    Glide.with(getContext()).load(question.getImage_path()).into(imageView);
+                }
                 // Cấu hình MediaPlayer với audio_path
                 if (questions.getAudio_path() != null) {
                     LinearLayout line1 = getView().findViewById(R.id.line1);
@@ -94,8 +104,34 @@ public class QuestionFragment1 extends Fragment {
         tvCurrentTime = view.findViewById(R.id.tv_current_time);
         tvTotalTime = view.findViewById(R.id.tv_total_time);
         recyclerView = view.findViewById(R.id.recycler_view);
+        button = view.findViewById(R.id.bt_submit);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checkAnswers();
+            }
+        });
+    }
+    public void checkAnswers() {
+        int score = 0;
+        int dem =0 ;
+        for (Questions questions: Utils.questions_model_answer){
+            for (Question question: questions.getQuestions()){
+                dem++;
+                if (question.getSelectedAnswerId() != null && question.getSelectedAnswerId().equals(question.getCorrect_option())) {
+                    score++; // Tăng điểm nếu đáp án đúng
+                }
+            }
+        }
+
+        // Hiển thị kết quả cho người dùng
+        displayResult(score,dem);
+    }
+    public void displayResult(int score, int all) {
+        // Hiển thị kết quả trong một Toast
+        Toast.makeText(getContext(), "Bạn đã trả lời đúng " + score + " câu!/"+all, Toast.LENGTH_SHORT).show();
     }
 
 

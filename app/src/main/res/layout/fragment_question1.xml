@@ -3,7 +3,6 @@
     android:id="@+id/content"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
     <LinearLayout
         android:id="@+id/line1"
         android:layout_width="match_parent"
@@ -80,26 +79,43 @@
             android:textColor="@android:color/white"
             android:textSize="14sp" />
     </LinearLayout>
-
+    <Button
+        android:id="@+id/bt_submit"
+        app:layout_constraintTop_toBottomOf="@id/line1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
     <ScrollView
         android:id="@+id/scroll_paragraph"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:background="@color/gray_light"
+        android:padding="10dp"
         android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/line_recycler"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/paragraph_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:maxHeight="350dp"
+        <LinearLayout
             android:scrollbars="vertical"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-    </ScrollView>
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/paragraph_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+            <ImageView
+                android:id="@+id/image_path"
+                android:visibility="gone"
+                android:scaleType="fitXY"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="400dp"/>
+        </LinearLayout>
 
+    </ScrollView>
 
     <ImageView
         android:id="@+id/img_question"
@@ -113,6 +129,7 @@
         app:layout_constraintTop_toBottomOf="@id/line1" />
 
     <LinearLayout
+        android:id="@+id/line_recycler"
         android:layout_width="match_parent"
         android:layout_height="350dp"
         android:orientation="vertical"

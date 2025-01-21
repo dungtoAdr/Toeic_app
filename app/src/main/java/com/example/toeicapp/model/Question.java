@@ -3,6 +3,7 @@ package com.example.toeicapp.model;
 import java.io.Serializable;
 
 public class Question implements Serializable {
+    private int id;
     private String question_text;
     private String option_a;
     private String option_b;
@@ -11,6 +12,23 @@ public class Question implements Serializable {
     private String correct_option;
     private String audio_path;
     private String image_path;
+    private String selectedAnswerId; // Lưu ID đáp án người dùng chọn
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getSelectedAnswerId() {
+        return selectedAnswerId;
+    }
+
+    public void setSelectedAnswerId(String selectedAnswerId) {
+        this.selectedAnswerId = selectedAnswerId;
+    }
 
     public String getAudio_path() {
         return audio_path;

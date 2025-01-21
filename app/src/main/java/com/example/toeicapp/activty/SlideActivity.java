@@ -1,7 +1,11 @@
 package com.example.toeicapp.activty;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
@@ -29,7 +33,8 @@ public class SlideActivity extends FragmentActivity {
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
     private ApiToeic apiToeic;
     private Toolbar toolbar;
-
+    private Button bt_submit;
+    private TextView number_question;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +54,7 @@ public class SlideActivity extends FragmentActivity {
                             questionModel -> {
                                 if (questionModel.isSuccess()) {
                                     List<Question> questions = questionModel.getQuestions();
+                                    Utils.questions_answer=questionModel.getQuestions();
                                     pagerAdapter = new ScreenSlidePagerAdapter(this, questions);
                                     viewPager.setAdapter(pagerAdapter);
                                     Log.d("TAG_part5", questions.get(1).getOption_a());
@@ -65,6 +71,7 @@ public class SlideActivity extends FragmentActivity {
                             questionModel -> {
                                 if (questionModel.isSuccess()) {
                                     List<Question> questions = questionModel.getQuestions();
+                                    Utils.questions_answer=questionModel.getQuestions();
                                     pagerAdapter = new ScreenSlidePagerAdapter(this, questions);
                                     viewPager.setAdapter(pagerAdapter);
                                 }
@@ -80,6 +87,7 @@ public class SlideActivity extends FragmentActivity {
                             questionModel -> {
                                 if (questionModel.isSuccess()) {
                                     List<Question> questions = questionModel.getQuestions();
+                                    Utils.questions_answer=questionModel.getQuestions();
                                     pagerAdapter = new ScreenSlidePagerAdapter(this, questions);
                                     viewPager.setAdapter(pagerAdapter);
                                 }
@@ -93,20 +101,23 @@ public class SlideActivity extends FragmentActivity {
     private void initView() {
         apiToeic = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiToeic.class);
         viewPager = findViewById(R.id.view_pager);
-
         toolbar = findViewById(R.id.tool_bar);
-
-
-        toolbar.setTitle("Cau 1");
+        bt_submit = findViewById(R.id.bt_submit);
+        number_question = findViewById(R.id.number_question);
+        number_question.setText("Câu 1");
         viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
-                toolbar.setTitle("Cau " + (position + 1));
+                number_question.setText("Câu " + (position + 1));
             }
         });
+        bt_submit.setOnClickListener(view -> {
+            Intent intent= new Intent(this,ResultActivity.class);
+            startActivity(intent);
+            finish();
+        });
     }
-
     @Override
     protected void onDestroy() {
         super.onDestroy();

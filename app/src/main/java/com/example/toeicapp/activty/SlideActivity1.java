@@ -10,6 +10,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.toeicapp.R;
 import com.example.toeicapp.fragment.QuestionFragment1;
+import com.example.toeicapp.model.Question;
 import com.example.toeicapp.model.Questions;
 import com.example.toeicapp.retrofit.ApiToeic;
 import com.example.toeicapp.retrofit.RetrofitClient;
@@ -26,7 +27,6 @@ public class SlideActivity1 extends FragmentActivity {
     private ScreenSlidePagerAdapter pagerAdapter;
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
     private ApiToeic apiToeic;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +45,7 @@ public class SlideActivity1 extends FragmentActivity {
                             questionsModel -> {
                                 if (questionsModel.isSuccess()) {
                                     List<Questions> questions = questionsModel.getResult();
+                                    Utils.questions_model_answer=questionsModel.getResult();
                                     pagerAdapter = new ScreenSlidePagerAdapter(this, questions);
                                     viewPager.setAdapter(pagerAdapter);
                                 }
@@ -60,6 +61,7 @@ public class SlideActivity1 extends FragmentActivity {
                             questionsModel -> {
                                 if (questionsModel.isSuccess()) {
                                     List<Questions> questions = questionsModel.getResult();
+                                    Utils.questions_model_answer=questionsModel.getResult();
                                     pagerAdapter = new ScreenSlidePagerAdapter(this, questions);
                                     viewPager.setAdapter(pagerAdapter);
                                 }
@@ -75,6 +77,7 @@ public class SlideActivity1 extends FragmentActivity {
                             questionsModel -> {
                                 if (questionsModel.isSuccess()) {
                                     List<Questions> questions = questionsModel.getResult();
+                                    Utils.questions_model_answer=questionsModel.getResult();
                                     pagerAdapter = new ScreenSlidePagerAdapter(this, questions);
                                     viewPager.setAdapter(pagerAdapter);
                                 }
@@ -90,6 +93,7 @@ public class SlideActivity1 extends FragmentActivity {
                             questionsModel -> {
                                 if (questionsModel.isSuccess()) {
                                     List<Questions> questions = questionsModel.getResult();
+                                    Utils.questions_model_answer=questionsModel.getResult();
                                     pagerAdapter = new ScreenSlidePagerAdapter(this, questions);
                                     viewPager.setAdapter(pagerAdapter);
                                 }
@@ -114,7 +118,6 @@ public class SlideActivity1 extends FragmentActivity {
 
     private static class ScreenSlidePagerAdapter extends FragmentStateAdapter {
         private final List<Questions> questions;
-
         public ScreenSlidePagerAdapter(FragmentActivity fa, List<Questions> questions) {
             super(fa);
             this.questions = questions;

@@ -3,14 +3,18 @@ package com.example.toeicapp.fragment;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,9 +24,11 @@ import androidx.fragment.app.Fragment;
 import com.bumptech.glide.Glide;
 import com.example.toeicapp.R;
 import com.example.toeicapp.model.Question;
+import com.example.toeicapp.utils.Utils;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class QuestionFragment extends Fragment {
@@ -30,11 +36,12 @@ public class QuestionFragment extends Fragment {
     private MediaPlayer mediaPlayer;
     private ImageButton btnPlayPause, btnRewind, btnForward;
     private SeekBar seekBar;
-    private TextView tvCurrentTime, tvTotalTime, text1,text2,text3,text4;
+    private TextView tvCurrentTime, tvTotalTime, text1, text2, text3, text4;
     private boolean isPlaying = false;
     private Handler handler = new Handler();
     private TextView questionText;
     private ImageView questionImage;
+    private RadioGroup radio_answer;
 
     public static QuestionFragment newInstance(Question question) {
         QuestionFragment fragment = new QuestionFragment();
@@ -60,14 +67,14 @@ public class QuestionFragment extends Fragment {
         if (getArguments() != null) {
             Question question = (Question) getArguments().getSerializable(ARG_QUESTION);
             if (question != null) {
-                if (question.getQuestion_text()!=null){
-                    CardView card_view_part5=getView().findViewById(R.id.card_view_part5);
+                if (question.getQuestion_text() != null) {
+                    CardView card_view_part5 = getView().findViewById(R.id.card_view_part5);
                     card_view_part5.setVisibility(View.VISIBLE);
                     questionText.setText(question.getQuestion_text());
-                    text1.setText("A."+question.getOption_a());
-                    text2.setText("B."+question.getOption_b());
-                    text3.setText("C."+question.getOption_c());
-                    text4.setText("D."+question.getOption_d());
+                    text1.setText("A." + question.getOption_a());
+                    text2.setText("B." + question.getOption_b());
+                    text3.setText("C." + question.getOption_c());
+                    text4.setText("D." + question.getOption_d());
                 }
                 if (question.getImage_path() != null) {
                     Glide.with(getContext()).load(question.getImage_path()).into(questionImage);
@@ -75,7 +82,7 @@ public class QuestionFragment extends Fragment {
 
                 // Cấu hình MediaPlayer với audio_path
                 if (question.getAudio_path() != null) {
-                    LinearLayout linearLayout= (LinearLayout) getView().findViewById(R.id.line1);
+                    LinearLayout linearLayout = (LinearLayout) getView().findViewById(R.id.line1);
                     linearLayout.setVisibility(View.VISIBLE);
                     initializeAudioPlayer(question.getAudio_path());
                 } else {
@@ -99,10 +106,36 @@ public class QuestionFragment extends Fragment {
         text2 = view.findViewById(R.id.text2);
         text3 = view.findViewById(R.id.text3);
         text4 = view.findViewById(R.id.text4);
+        radio_answer = view.findViewById(R.id.radio_answer);
         if (questionText.getText().toString().isEmpty()) {
             questionText.setVisibility(View.GONE);
         }
+        Question question = (Question) getArguments().getSerializable(ARG_QUESTION);
+        radio_answer.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (checkedId == R.id.radio_a) {
+                    Log.d("TAG_radio", question.getCorrect_option() + "Chọn A");
+                    question.setSelectedAnswerId("A");
+                } else if (checkedId == R.id.radio_b) {
+                    Log.d("TAG_radio", question.getCorrect_option() + "Chọn B");
+                    question.setSelectedAnswerId("B");
+
+                } else if (checkedId == R.id.radio_c) {
+                    Log.d("TAG_radio", question.getCorrect_option() + "Chọn C");
+                    question.setSelectedAnswerId("C");
+
+                } else if (checkedId == R.id.radio_d) {
+                    Log.d("TAG_radio", question.getCorrect_option() + "Chọn D");
+                    question.setSelectedAnswerId("D");
+
+                }
+            }
+        });
+
+
     }
+
 
     private void initializeAudioPlayer(String audioPath) {
         mediaPlayer = new MediaPlayer();
@@ -182,6 +215,17 @@ public class QuestionFragment extends Fragment {
         return String.format("%02d:%02d",
                 TimeUnit.MILLISECONDS.toMinutes(millis),
                 TimeUnit.MILLISECONDS.toSeconds(millis) % 60);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (mediaPlayer != null) {
+            if (mediaPlayer.isPlaying()) {
+                mediaPlayer.pause();
+                btnPlayPause.setImageResource(R.drawable.play); // Update UI to show the play button
+            }
+        }
     }
 
     @Override
