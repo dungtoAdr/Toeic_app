@@ -34,8 +34,11 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.MyViewHold
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Question question=questions.get(position);
         if(!question.getCorrect_option().equals(question.getSelectedAnswerId())){
-            holder.answer.setText(question.getCorrect_option());
-            holder.number_question.setText(question.getId()+"");
+            holder.answer.setText(question.getCorrect_option()+"❌");
+            holder.number_question.setText("Câu " + (position + 1));
+        }else {
+            holder.answer.setText(question.getCorrect_option()+"✅");
+            holder.number_question.setText("Câu " + (position + 1));
         }
     }
 

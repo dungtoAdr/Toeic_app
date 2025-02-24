@@ -115,7 +115,6 @@ public class SlideActivity extends FragmentActivity {
         bt_submit.setOnClickListener(view -> {
             Intent intent= new Intent(this,ResultActivity.class);
             startActivity(intent);
-            finish();
         });
     }
     @Override

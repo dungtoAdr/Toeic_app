@@ -16,6 +16,14 @@
         android:theme="@style/Theme.ToeicApp"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity android:name=".activty.SlideExamActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".activty.LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activty.ResultActivity1"
+            android:exported="false" />
         <activity
             android:name=".activty.ResultActivity"
             android:exported="false" />

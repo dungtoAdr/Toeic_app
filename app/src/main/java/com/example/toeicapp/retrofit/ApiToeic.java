@@ -1,6 +1,7 @@
 package com.example.toeicapp.retrofit;
 
 
+import com.example.toeicapp.model.ExamModel;
 import com.example.toeicapp.model.QuestionModel;
 import com.example.toeicapp.model.QuestionsModel;
 import com.example.toeicapp.model.Topics;
@@ -41,6 +42,8 @@ public interface ApiToeic {
             @Query("topic_id") int topic_id
     );
 
+    @GET("get_exams.php")
+    Observable<ExamModel> getExams();
 
 
 }

@@ -77,6 +77,7 @@ public class QuestionFragment extends Fragment {
                     text4.setText("D." + question.getOption_d());
                 }
                 if (question.getImage_path() != null) {
+                    questionImage.setVisibility(View.VISIBLE);
                     Glide.with(getContext()).load(question.getImage_path()).into(questionImage);
                 }
 

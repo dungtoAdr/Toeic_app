@@ -12,6 +12,7 @@ public class Question implements Serializable {
     private String correct_option;
     private String audio_path;
     private String image_path;
+    private String paragraph_path;
     private String selectedAnswerId; // Lưu ID đáp án người dùng chọn
 
     public int getId() {
@@ -92,5 +93,13 @@ public class Question implements Serializable {
 
     public void setCorrect_option(String correct_option) {
         this.correct_option = correct_option;
+    }
+
+    public String getParagraph_path() {
+        return paragraph_path;
+    }
+
+    public void setParagraph_path(String paragraph_path) {
+        this.paragraph_path = paragraph_path;
     }
 }

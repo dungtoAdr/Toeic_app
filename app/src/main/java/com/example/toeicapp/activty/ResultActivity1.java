@@ -3,11 +3,7 @@ package com.example.toeicapp.activty;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,7 +15,7 @@ import com.example.toeicapp.utils.Utils;
 
 import java.util.List;
 
-public class ResultActivity extends AppCompatActivity {
+public class ResultActivity1 extends AppCompatActivity {
     private RecyclerView recycler_answer;
     private TextView result_answer;
     private ResultAdapter resultAdapter;
@@ -33,31 +29,26 @@ public class ResultActivity extends AppCompatActivity {
         recycler_answer = findViewById(R.id.recycler_answer);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
         recycler_answer.setLayoutManager(layoutManager);
+        checkAnswers_1(Utils.questions_model_answer);
         resultAdapter = new ResultAdapter(this, Utils.questions_answer);
         recycler_answer.setAdapter(resultAdapter);
-        checkAnswers(Utils.questions_answer);
-//        checkAnswers_1(Utils.questions_model_answer);
         result_answer.setText("Kết quả: " + score + "/" + Utils.questions_answer.size());
     }
 
-        public void checkAnswers(List<Question> questions) {
+    public void checkAnswers_1(List<Questions> questionss) {
         score = 0;
-        for (Question question : questions) {
-            if (question.getSelectedAnswerId() != null && question.getSelectedAnswerId().equals(question.getCorrect_option())) {
-                score++; // Tăng điểm nếu đáp án đúng
+        Utils.questions_answer.clear();
+
+        for (Questions questions : questionss) {
+            List<Question> questionList = questions.getQuestions();
+            Utils.questions_answer.addAll(questionList);
+
+            for (Question question : questionList) {
+                if (question.getSelectedAnswerId() != null && question.getSelectedAnswerId().equals(question.getCorrect_option())) {
+                    score++;
+                }
             }
         }
     }
-//    public void checkAnswers_1(List<Questions> questionss) {
-//        score = 0;
-//        for (Questions questions : questionss) {
-//            for (int i = 0; i < questions.getQuestions().size(); i++) {
-//                Question question = questions.getQuestions().get(i);
-//                if (question.getSelectedAnswerId() != null && question.getSelectedAnswerId().equals(question.getCorrect_option())) {
-//                    score++; // Tăng điểm nếu đáp án đúng
-//                }
-//            }
-//
-//        }
-//    }
+
 }

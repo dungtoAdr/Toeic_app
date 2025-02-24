@@ -1,9 +1,13 @@
 package com.example.toeicapp.activty;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
@@ -27,6 +31,11 @@ public class SlideActivity1 extends FragmentActivity {
     private ScreenSlidePagerAdapter pagerAdapter;
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
     private ApiToeic apiToeic;
+    private Toolbar toolbar;
+
+    private Button bt_submit;
+    private TextView number_question;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -106,8 +115,23 @@ public class SlideActivity1 extends FragmentActivity {
     }
 
     private void initView() {
-        viewPager = findViewById(R.id.view_pager);
         apiToeic = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiToeic.class);
+        viewPager = findViewById(R.id.view_pager);
+        toolbar = findViewById(R.id.tool_bar);
+        bt_submit = findViewById(R.id.bt_submit);
+        number_question = findViewById(R.id.number_question);
+        number_question.setText("Câu 1");
+        viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+                number_question.setText("Câu " + (position + 1));
+            }
+        });
+        bt_submit.setOnClickListener(view -> {
+            Intent intent= new Intent(this,ResultActivity1.class);
+            startActivity(intent);
+        });
     }
 
     @Override
