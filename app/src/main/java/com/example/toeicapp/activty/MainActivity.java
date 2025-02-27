@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
                 super.onPageSelected(position);
                 if (position == 0) {
                     navigationView.getMenu().findItem(R.id.nav_home).setChecked(true);
-                    toolbar_title.setText("TOEIC");
+                    toolbar_title.setText("DUNGTOEIC");
                 } else if (position == 1) {
                     navigationView.getMenu().findItem(R.id.nav_test).setChecked(true);
                     toolbar_title.setText("Test");
