@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">ToeicApp</string>
+    <string name="client_id">137638496912-mstise84m6fr1b19l8vlpiktujp8bbc1.apps.googleusercontent.com</string>
+    <string name="facebook_app_id">1538825756864569</string>
+    <string name="facebook_client_token">3a59e45a9b11b5ae9e2ec7474a3fe236</string>
 </resources>

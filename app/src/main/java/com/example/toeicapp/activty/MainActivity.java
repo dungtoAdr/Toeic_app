@@ -2,6 +2,7 @@ package com.example.toeicapp.activty;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,12 +10,25 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.toeicapp.R;
 import com.example.toeicapp.adapter.ViewPagerAdapter;
+import com.example.toeicapp.model.User;
+import com.example.toeicapp.retrofit.ApiToeic;
+import com.example.toeicapp.retrofit.RetrofitClient;
+import com.example.toeicapp.utils.Utils;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.disposables.CompositeDisposable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity {
     private ViewPager2 viewPager2;
     private BottomNavigationView navigationView;
     private TextView toolbar_title;
+    private FirebaseAuth firebaseAuth;
+    private ApiToeic apiToeic;
+    private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,9 +36,34 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         initView();
         initControl();
+        initData();
+    }
+
+    private void initData() {
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+        String name = user.getDisplayName();
+        String uid = user.getUid();
+        User userr = new User(name, uid);
+        compositeDisposable.add(apiToeic.signUp(userr)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        userModel -> {
+                            if (userModel.isSuccess()) {
+                                Log.d("TAG_signup_user", userModel.getMessage());
+                            } else {
+                                Log.d("TAG_signup_user", userModel.getMessage());
+                            }
+                        }, throwable -> {
+                            Log.d("TAG_signup_user", throwable.getMessage());
+                        }
+                )
+        );
     }
 
     private void initView() {
+        apiToeic = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiToeic.class);
+        firebaseAuth = FirebaseAuth.getInstance();
         viewPager2 = findViewById(R.id.view_pager);
         navigationView = findViewById(R.id.bottom_nav);
         toolbar_title = findViewById(R.id.toolbar_title);
@@ -66,5 +105,11 @@ public class MainActivity extends AppCompatActivity {
             }
             return true;
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        compositeDisposable.clear();
     }
 }

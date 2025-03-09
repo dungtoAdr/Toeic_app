@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
+    alias(libs.plugins.google.gms.google.services)
 }
 
 android {
@@ -37,24 +38,25 @@ dependencies {
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
+    implementation(libs.firebase.auth)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
     implementation("com.squareup.retrofit2:retrofit:2.11.0")
     //RxJava
-    implementation ("io.reactivex.rxjava3:rxandroid:3.0.0")
-    implementation ("io.reactivex.rxjava3:rxjava:3.0.0")
+    implementation("io.reactivex.rxjava3:rxandroid:3.0.0")
+    implementation("io.reactivex.rxjava3:rxjava:3.0.0")
     // Retrofit
-    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
-    implementation ("com.github.akarnokd:rxjava3-retrofit-adapter:3.0.0")
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.github.akarnokd:rxjava3-retrofit-adapter:3.0.0")
 
 
-    implementation ("androidx.core:core-ktx:latest_version")
+    implementation("androidx.core:core-ktx:latest_version")
     //Gson
     implementation("com.google.code.gson:gson:2.10.1")
     //glider
-    implementation ("com.github.bumptech.glide:glide:4.16.0")
+    implementation("com.github.bumptech.glide:glide:4.16.0")
     //picasso
     implementation("com.squareup.picasso:picasso:2.8")
     //lottie
@@ -63,6 +65,9 @@ dependencies {
     implementation("com.google.mlkit:translate:17.0.2")
     implementation("com.google.mlkit:text-recognition:16.0.0")
     implementation("com.google.android.material:material:1.8.0")
-    //spech to text
-//    implementation("com.google.android.gms:play-services-speech:21.0.0")
+    //
+    implementation("com.google.firebase:firebase-auth")
+    implementation("com.facebook.android:facebook-android-sdk:16.0.1")
+    implementation("com.google.android.gms:play-services-auth:21.3.0")
+    implementation("com.google.firebase:firebase-bom:33.9.0")
 }

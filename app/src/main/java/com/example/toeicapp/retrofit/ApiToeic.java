@@ -5,11 +5,15 @@ import com.example.toeicapp.model.ExamModel;
 import com.example.toeicapp.model.QuestionModel;
 import com.example.toeicapp.model.QuestionsModel;
 import com.example.toeicapp.model.Topics;
+import com.example.toeicapp.model.User;
+import com.example.toeicapp.model.UserModel;
 import com.example.toeicapp.model.Vocabularies;
 
 
 import io.reactivex.rxjava3.core.Observable;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 public interface ApiToeic {
@@ -45,5 +49,9 @@ public interface ApiToeic {
     @GET("get_exams.php")
     Observable<ExamModel> getExams();
 
+    @POST("signup.php")
+    Observable<UserModel> signUp(
+            @Body User user
+    );
 
 }

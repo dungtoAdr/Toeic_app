@@ -32,7 +32,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/inputText"
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
+                android:layout_height="150dp"
                 android:background="@android:color/transparent"
                 android:textSize="16sp" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -118,7 +118,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/outputText"
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
+                android:layout_height="150dp"
                 android:background="@android:color/transparent"
                 android:cursorVisible="false"
                 android:focusable="false"

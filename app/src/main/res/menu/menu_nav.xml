@@ -10,7 +10,7 @@
 
     <item
         android:id="@+id/nav_test"
-        android:icon="@drawable/ic_launcher_foreground"
+        android:icon="@drawable/clook"
         android:title="Test" />
 
     <item

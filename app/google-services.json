@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "137638496912",
+    "project_id": "toeicapp-48b84",
+    "storage_bucket": "toeicapp-48b84.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:137638496912:android:16f93df646fbea7428a615",
+        "android_client_info": {
+          "package_name": "com.example.toeicapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCxe5z7XOqFeuzufpY9kO3rW9ZKG6YM0d0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

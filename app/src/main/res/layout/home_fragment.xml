@@ -10,23 +10,30 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="10dp">
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="120dp"
-            android:layout_margin="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="5dp"
             android:elevation="4dp"
             app:cardCornerRadius="8dp">
-
-            <com.airbnb.lottie.LottieAnimationView
-                android:id="@+id/animationView"
+            <ImageView
+                android:src="@drawable/banner"
+                android:scaleType="centerCrop"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="fitXY"
-                app:lottie_autoPlay="true"
-                app:lottie_loop="true"
-                app:lottie_rawRes="@raw/study" />
+                android:layout_height="match_parent"/>
+<!--            <com.airbnb.lottie.LottieAnimationView-->
+<!--                android:id="@+id/animationView"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:scaleType="fitXY"-->
+<!--                app:lottie_autoPlay="true"-->
+<!--                app:lottie_loop="true"-->
+<!--                app:lottie_rawRes="@raw/study" />-->
         </androidx.cardview.widget.CardView>
 
         <!-- Banner -->
@@ -62,6 +69,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/background_gradient"
                     android:gravity="center"
                     android:orientation="vertical"
                     android:padding="8dp">
@@ -93,6 +101,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/background_gradient"
                     android:gravity="center"
                     android:orientation="vertical"
                     android:padding="8dp">
@@ -144,7 +153,9 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/background_gradient"
                     android:gravity="center"
+
                     android:orientation="vertical"
                     android:padding="8dp">
 
@@ -175,6 +186,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/background_gradient"
                     android:gravity="center"
                     android:orientation="vertical"
                     android:padding="8dp">

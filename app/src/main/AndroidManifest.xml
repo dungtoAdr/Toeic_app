@@ -19,6 +19,18 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".activty.ProfileActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".activty.PolicyActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".activty.ForgetActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".activty.SignupActivity"
+            android:exported="false" />
+        <activity
             android:name=".activty.SlideExamActivity"
             android:exported="false" />
         <activity
@@ -32,8 +44,7 @@
             android:exported="false" />
         <activity
             android:name=".activty.SplashActivity"
-            android:exported="true"
-            android:theme="@style/SplashscreenTheme">
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -67,6 +78,12 @@
         <activity
             android:name=".activty.SlideActivity1"
             android:exported="true" />
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+        <meta-data
+            android:name="com.facebook.sdk.ClientToken"
+            android:value="@string/facebook_client_token" />
     </application>
 
 </manifest>
