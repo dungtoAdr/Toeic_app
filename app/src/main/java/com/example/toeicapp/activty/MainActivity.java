@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         FirebaseUser user = firebaseAuth.getCurrentUser();
         String name = user.getDisplayName();
         String uid = user.getUid();
+        Utils.current_user_id = uid;
         User userr = new User(name, uid);
         compositeDisposable.add(apiToeic.signUp(userr)
                 .subscribeOn(Schedulers.io())

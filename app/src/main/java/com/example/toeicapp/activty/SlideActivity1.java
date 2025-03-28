@@ -1,7 +1,9 @@
 package com.example.toeicapp.activty;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
@@ -21,6 +23,7 @@ import com.example.toeicapp.retrofit.RetrofitClient;
 import com.example.toeicapp.utils.Utils;
 
 import java.util.List;
+import java.util.Objects;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
@@ -35,6 +38,8 @@ public class SlideActivity1 extends FragmentActivity {
 
     private Button bt_submit;
     private TextView number_question;
+    private ProgressDialog progressDialog;
+    private final Handler handler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +50,7 @@ public class SlideActivity1 extends FragmentActivity {
     }
 
     private void getData() {
+        showLoading();
         int part = getIntent().getIntExtra("part", 1);
         if (part == 3) {
             compositeDisposable.add(apiToeic.getPart3()
@@ -54,9 +60,11 @@ public class SlideActivity1 extends FragmentActivity {
                             questionsModel -> {
                                 if (questionsModel.isSuccess()) {
                                     List<Questions> questions = questionsModel.getResult();
-                                    Utils.questions_model_answer=questionsModel.getResult();
+                                    Utils.questions_model_answer = questionsModel.getResult();
                                     pagerAdapter = new ScreenSlidePagerAdapter(this, questions);
                                     viewPager.setAdapter(pagerAdapter);
+                                    viewPager.setOffscreenPageLimit(questions.size());
+                                    handler.postDelayed(this::hideLoading, 500);
                                 }
                             }, throwable -> {
                                 Log.d("TAG_Part_3", throwable.getMessage());
@@ -70,9 +78,18 @@ public class SlideActivity1 extends FragmentActivity {
                             questionsModel -> {
                                 if (questionsModel.isSuccess()) {
                                     List<Questions> questions = questionsModel.getResult();
-                                    Utils.questions_model_answer=questionsModel.getResult();
+                                    if (Utils.questions_answer != null) {
+                                        Utils.questions_answer.clear();
+                                    }
+                                    for (Questions questionss : questions) {
+                                        List<Question> questionList = questionss.getQuestions();
+                                        Utils.questions_answer.addAll(questionList);
+                                    }
+                                    Utils.questions_model_answer = questionsModel.getResult();
                                     pagerAdapter = new ScreenSlidePagerAdapter(this, questions);
                                     viewPager.setAdapter(pagerAdapter);
+                                    viewPager.setOffscreenPageLimit(questions.size());
+                                    handler.postDelayed(this::hideLoading, 500);
                                 }
                             }, throwable -> {
                                 Log.d("TAG_Part_4", throwable.getMessage());
@@ -86,9 +103,11 @@ public class SlideActivity1 extends FragmentActivity {
                             questionsModel -> {
                                 if (questionsModel.isSuccess()) {
                                     List<Questions> questions = questionsModel.getResult();
-                                    Utils.questions_model_answer=questionsModel.getResult();
+                                    Utils.questions_model_answer = questionsModel.getResult();
                                     pagerAdapter = new ScreenSlidePagerAdapter(this, questions);
                                     viewPager.setAdapter(pagerAdapter);
+                                    viewPager.setOffscreenPageLimit(questions.size());
+                                    handler.postDelayed(this::hideLoading, 500);
                                 }
                             }, throwable -> {
                                 Log.d("TAG_Part_6", throwable.getMessage());
@@ -102,9 +121,11 @@ public class SlideActivity1 extends FragmentActivity {
                             questionsModel -> {
                                 if (questionsModel.isSuccess()) {
                                     List<Questions> questions = questionsModel.getResult();
-                                    Utils.questions_model_answer=questionsModel.getResult();
+                                    Utils.questions_model_answer = questionsModel.getResult();
                                     pagerAdapter = new ScreenSlidePagerAdapter(this, questions);
                                     viewPager.setAdapter(pagerAdapter);
+                                    viewPager.setOffscreenPageLimit(questions.size());
+                                    handler.postDelayed(this::hideLoading, 500);
                                 }
                             }, throwable -> {
                                 Log.d("TAG_Part_7", throwable.getMessage());
@@ -112,6 +133,19 @@ public class SlideActivity1 extends FragmentActivity {
                     ));
         }
 
+    }
+
+    private void showLoading() {
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Đang tải câu hỏi...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+    }
+
+    private void hideLoading() {
+        if (progressDialog != null && progressDialog.isShowing()) {
+            progressDialog.dismiss();
+        }
     }
 
     private void initView() {
@@ -129,8 +163,9 @@ public class SlideActivity1 extends FragmentActivity {
             }
         });
         bt_submit.setOnClickListener(view -> {
-            Intent intent= new Intent(this,ResultActivity1.class);
+            Intent intent = new Intent(this, ResultActivity1.class);
             startActivity(intent);
+            finish();
         });
     }
 
@@ -142,6 +177,7 @@ public class SlideActivity1 extends FragmentActivity {
 
     private static class ScreenSlidePagerAdapter extends FragmentStateAdapter {
         private final List<Questions> questions;
+
         public ScreenSlidePagerAdapter(FragmentActivity fa, List<Questions> questions) {
             super(fa);
             this.questions = questions;

@@ -10,10 +10,32 @@ public class Question implements Serializable {
     private String option_c;
     private String option_d;
     private String correct_option;
+    private int category_id;
     private String audio_path;
     private String image_path;
     private String paragraph_path;
     private String selectedAnswerId; // Lưu ID đáp án người dùng chọn
+    private String transcript;
+    private String user_answer;
+
+    public String getUser_answer() {
+        return user_answer;
+    }
+
+    public void setUser_answer(String user_answer) {
+        this.user_answer = user_answer;
+    }
+
+    public Question() {
+    }
+
+    public String getTranscript() {
+        return transcript;
+    }
+
+    public void setTranscript(String transcript) {
+        this.transcript = transcript;
+    }
 
     public int getId() {
         return id;
@@ -21,6 +43,14 @@ public class Question implements Serializable {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getCategory_id() {
+        return category_id;
+    }
+
+    public void setCategory_id(int category_id) {
+        this.category_id = category_id;
     }
 
     public String getSelectedAnswerId() {

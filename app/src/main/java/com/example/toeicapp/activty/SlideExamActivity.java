@@ -42,7 +42,7 @@ public class SlideExamActivity extends FragmentActivity {
     private TextView number_question;
     private List<Question> questionList = new ArrayList<>();
     private ProgressDialog progressDialog;
-    private final Handler handler = new Handler(); // Xử lý delay để tránh lỗi
+    private final Handler handler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +63,7 @@ public class SlideExamActivity extends FragmentActivity {
                         examModel -> {
                             if (examModel.isSuccess()) {
                                 List<Exam> exams = examModel.getData();
-                                questionList = exams.get(0).getQuestions();
+                                questionList = exams.get(id).getQuestions();
                                 Utils.questions_answer = questionList;
                                 Log.d("TAG_exam", "Số câu hỏi: " + questionList.size());
 
@@ -76,7 +76,7 @@ public class SlideExamActivity extends FragmentActivity {
                                 handler.postDelayed(this::hideLoading, 500);
                             }
                         }, throwable -> {
-                            hideLoading(); // Ẩn vòng xoay nếu có lỗi
+                            hideLoading();
                             Log.e("TAG_exam", "Lỗi khi tải câu hỏi: " + throwable.getMessage());
                         }
                 )
@@ -103,6 +103,7 @@ public class SlideExamActivity extends FragmentActivity {
 
         bt_submit.setOnClickListener(view -> {
             Intent intent = new Intent(this, ResultActivity.class);
+            intent.putExtra("part",8);
             startActivity(intent);
             finish();
         });

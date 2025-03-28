@@ -29,7 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Jenky Tran"
+            android:text="Dung To"
             android:textColor="@android:color/black"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -37,8 +37,9 @@
         <TextView
             android:id="@+id/tv_email"
             android:layout_width="wrap_content"
+
             android:layout_height="wrap_content"
-            android:text="jenky.tran@gmail.com"
+            android:text="totrungdung19032003@gmail.com"
             android:textSize="14sp" />
     </LinearLayout>
 
@@ -103,7 +104,33 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginStart="12dp"
-                android:text="Lịch sử đo đạc"
+                android:text="Lịch sử luyện tập"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/line_favorite"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:orientation="horizontal"
+            android:padding="12dp">
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/history"
+                app:tint="@color/tool_bar" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="12dp"
+                android:text="Từ vựng cần luyện"
                 android:textSize="16sp" />
         </LinearLayout>
 

@@ -1,7 +1,12 @@
 package com.example.toeicapp.retrofit;
 
 
+import com.example.toeicapp.model.ApiResponse;
+import com.example.toeicapp.model.ApiResponse1;
 import com.example.toeicapp.model.ExamModel;
+import com.example.toeicapp.model.PracticeSession;
+import com.example.toeicapp.model.Question;
+import com.example.toeicapp.model.QuestionIdModel;
 import com.example.toeicapp.model.QuestionModel;
 import com.example.toeicapp.model.QuestionsModel;
 import com.example.toeicapp.model.Topics;
@@ -11,6 +16,7 @@ import com.example.toeicapp.model.Vocabularies;
 
 
 import io.reactivex.rxjava3.core.Observable;
+import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
@@ -49,9 +55,23 @@ public interface ApiToeic {
     @GET("get_exams.php")
     Observable<ExamModel> getExams();
 
+
+    @GET("practice_sessions.php")
+    Observable<ApiResponse> getPracticeSessions();
+
+    @GET("get_question_id.php")
+    Observable<QuestionIdModel> getQuestion_id(@Query("id") int id);
+
+    @GET("get_history_list_question.php")
+    Observable<ApiResponse1> getQuestionsBySession(@Query("session_id") int sessionId);
+
+    @GET("get_test.php")
+    Observable<ExamModel> getTest();
+
     @POST("signup.php")
     Observable<UserModel> signUp(
             @Body User user
     );
-
+    @POST("save_result.php")
+    Call<ApiResponse> submitPracticeResult(@Body PracticeSession request);
 }

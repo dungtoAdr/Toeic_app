@@ -18,6 +18,8 @@ import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 import com.example.toeicapp.R;
+import com.example.toeicapp.activty.FavoriteActivity;
+import com.example.toeicapp.activty.HistoryActivity;
 import com.example.toeicapp.activty.LoginActivity;
 import com.example.toeicapp.activty.PolicyActivity;
 import com.example.toeicapp.activty.ProfileActivity;
@@ -35,7 +37,7 @@ public class FragmentAccount extends Fragment {
 
     private TextView bt_logout, tv_username, tv_email;
     private FirebaseAuth firebaseAuth;
-    private LinearLayout line_info, line_history, line_support, line_policy;
+    private LinearLayout line_info, line_history, line_support, line_policy, line_favorite;
     private ImageView avatar;
 
     @Override
@@ -71,14 +73,18 @@ public class FragmentAccount extends Fragment {
             startActivity(Intent.createChooser(intent, "Chọn ứng dụng Email"));
         });
         line_history.setOnClickListener(v -> {
-//            Intent intent = new Intent(getContext(), HistoryActivity.class);
-//            startActivity(intent);
+            Intent intent = new Intent(getContext(), HistoryActivity.class);
+            startActivity(intent);
             Toast.makeText(getContext(),"History",Toast.LENGTH_SHORT).show();
         });
         line_policy.setOnClickListener(v ->{
             Intent intent = new Intent(getContext(), PolicyActivity.class);
             intent.putExtra("url", "https://policies.google.com/");
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        });
+        line_favorite.setOnClickListener(v -> {
+            Intent intent =new Intent(getContext(), FavoriteActivity.class);
             startActivity(intent);
         });
     }
@@ -92,6 +98,7 @@ public class FragmentAccount extends Fragment {
         line_support = view.findViewById(R.id.line_support);
         line_history = view.findViewById(R.id.line_history);
         line_policy = view.findViewById(R.id.line_policy);
+        line_favorite = view.findViewById(R.id.line_favorite);
         firebaseAuth = FirebaseAuth.getInstance();
     }
 }

@@ -2,8 +2,10 @@ package com.example.toeicapp.adapter;
 
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +18,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.toeicapp.R;
 import com.example.toeicapp.model.Vocabulary;
+import com.google.gson.Gson;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 public class VocabularyAdapter extends RecyclerView.Adapter<VocabularyAdapter.MyViewHolder> {
@@ -41,26 +45,57 @@ public class VocabularyAdapter extends RecyclerView.Adapter<VocabularyAdapter.My
         Vocabulary vocabulary = vocabularies.get(position);
         String word = vocabulary.getWord().trim();
         String audio = vocabulary.getAudioPath().trim();
+
         holder.txt_word.setText(MessageFormat.format("{0}{1}", word.substring(0, 1).toUpperCase(), word.substring(1)));
         holder.txt_pronunciation.setText(vocabulary.getPronunciation().trim());
         holder.txt_meaning.setText(vocabulary.getMeaning().trim());
+
+        // Load trạng thái yêu thích
+        if (vocabulary.isFavorite()) {
+            Glide.with(context).load(R.drawable.star_yellow).into(holder.image_star);
+        } else {
+            Glide.with(context).load(R.drawable.star).into(holder.image_star);
+        }
+
         holder.audio_path.setOnClickListener(view -> {
-            MediaPlayer mediaPlayer=MediaPlayer.create(context, Uri.parse(audio));
-            if (mediaPlayer != null) {
-                if (mediaPlayer.isPlaying()) {
-                    mediaPlayer.stop();
-                    mediaPlayer.reset();
-                }
-                mediaPlayer.release();
-            }
-            mediaPlayer = MediaPlayer.create(context, Uri.parse(audio));
+            MediaPlayer mediaPlayer = MediaPlayer.create(context, Uri.parse(audio));
             mediaPlayer.start();
         });
-        holder.image_star.setOnClickListener(view ->{
-            Glide.with(context).load(R.drawable.star_yellow).into(holder.image_star);
+
+        holder.image_star.setOnClickListener(view -> {
+            boolean newFavoriteState = !vocabulary.isFavorite();
+            vocabulary.setFavorite(newFavoriteState);
+
+            // Lưu trạng thái vào SharedPreferences
+            saveFavoriteWords();
+
+            // Cập nhật UI
+            if (newFavoriteState) {
+                Glide.with(context).load(R.drawable.star_yellow).into(holder.image_star);
+            } else {
+                Glide.with(context).load(R.drawable.star).into(holder.image_star);
+            }
         });
     }
 
+    // Lưu danh sách từ vựng yêu thích vào SharedPreferences
+    private void saveFavoriteWords() {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = prefs.edit();
+        Gson gson = new Gson();
+
+        // Lọc danh sách các từ vựng yêu thích
+        List<Vocabulary> favoriteWords = new ArrayList<>();
+        for (Vocabulary vocab : vocabularies) {
+            if (vocab.isFavorite()) {
+                favoriteWords.add(vocab);
+            }
+        }
+
+        String json = gson.toJson(favoriteWords);
+        editor.putString("favorite_words", json);
+        editor.apply();
+    }
 
     @Override
     public int getItemCount() {

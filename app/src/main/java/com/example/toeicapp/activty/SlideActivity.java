@@ -1,11 +1,12 @@
 package com.example.toeicapp.activty;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
@@ -35,6 +36,11 @@ public class SlideActivity extends FragmentActivity {
     private Toolbar toolbar;
     private Button bt_submit;
     private TextView number_question;
+    private ProgressDialog progressDialog;
+    private final Handler handler = new Handler();
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,8 +50,9 @@ public class SlideActivity extends FragmentActivity {
     }
 
     private void getData() {
+        showLoading(); // Hiển thị vòng xoay
         int part = getIntent().getIntExtra("part", 1);
-        Log.d("TAG_SLide", part + "");
+        Log.d("TAG_SLIDE", part + "");
         if (part == 1) {
             compositeDisposable.add(apiToeic.getPart1()
                     .subscribeOn(Schedulers.io())
@@ -54,14 +61,19 @@ public class SlideActivity extends FragmentActivity {
                             questionModel -> {
                                 if (questionModel.isSuccess()) {
                                     List<Question> questions = questionModel.getQuestions();
-                                    Utils.questions_answer=questionModel.getQuestions();
+                                    Utils.questions_answer = questionModel.getQuestions();
                                     pagerAdapter = new ScreenSlidePagerAdapter(this, questions);
                                     viewPager.setAdapter(pagerAdapter);
-                                    Log.d("TAG_part5", questions.get(1).getOption_a());
+                                    viewPager.setOffscreenPageLimit(questions.size());
+                                    Log.d("TAG_part1", questions.get(0).getOption_a());
+                                    handler.postDelayed(this::hideLoading, 500);
                                 }
                             },
-                            throwable -> Log.d("API_ERROR", Objects.requireNonNull(throwable.getMessage()))
-                    )
+                            throwable -> {
+                                Log.d("API_ERROR", Objects.requireNonNull(throwable.getMessage()));
+                                hideLoading();
+
+                            }                    )
             );
         } else if (part == 2) {
             compositeDisposable.add(apiToeic.getPart2()
@@ -71,13 +83,18 @@ public class SlideActivity extends FragmentActivity {
                             questionModel -> {
                                 if (questionModel.isSuccess()) {
                                     List<Question> questions = questionModel.getQuestions();
-                                    Utils.questions_answer=questionModel.getQuestions();
+                                    Utils.questions_answer = questionModel.getQuestions();
                                     pagerAdapter = new ScreenSlidePagerAdapter(this, questions);
                                     viewPager.setAdapter(pagerAdapter);
+                                    viewPager.setOffscreenPageLimit(questions.size());
+                                    handler.postDelayed(this::hideLoading, 500);
                                 }
                             },
-                            throwable -> Log.d("API_ERROR", Objects.requireNonNull(throwable.getMessage()))
-                    )
+                            throwable -> {
+                                Log.d("API_ERROR", Objects.requireNonNull(throwable.getMessage()));
+                                hideLoading();
+
+                            }                    )
             );
         } else if (part == 5) {
             compositeDisposable.add(apiToeic.getPart5()
@@ -87,17 +104,34 @@ public class SlideActivity extends FragmentActivity {
                             questionModel -> {
                                 if (questionModel.isSuccess()) {
                                     List<Question> questions = questionModel.getQuestions();
-                                    Utils.questions_answer=questionModel.getQuestions();
+                                    Utils.questions_answer = questionModel.getQuestions();
                                     pagerAdapter = new ScreenSlidePagerAdapter(this, questions);
                                     viewPager.setAdapter(pagerAdapter);
+                                    viewPager.setOffscreenPageLimit(questions.size());
+                                    handler.postDelayed(this::hideLoading, 500);
                                 }
                             },
-                            throwable -> Log.d("API_ERROR", Objects.requireNonNull(throwable.getMessage()))
+                            throwable -> {
+                                Log.d("API_ERROR", Objects.requireNonNull(throwable.getMessage()));
+                                hideLoading();
+
+                            }
                     )
             );
         }
     }
 
+    private void showLoading() {
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Đang tải câu hỏi...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+    }
+    private void hideLoading() {
+        if (progressDialog != null && progressDialog.isShowing()) {
+            progressDialog.dismiss();
+        }
+    }
     private void initView() {
         apiToeic = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiToeic.class);
         viewPager = findViewById(R.id.view_pager);
@@ -105,6 +139,7 @@ public class SlideActivity extends FragmentActivity {
         bt_submit = findViewById(R.id.bt_submit);
         number_question = findViewById(R.id.number_question);
         number_question.setText("Câu 1");
+
         viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {
@@ -112,11 +147,14 @@ public class SlideActivity extends FragmentActivity {
                 number_question.setText("Câu " + (position + 1));
             }
         });
+
         bt_submit.setOnClickListener(view -> {
-            Intent intent= new Intent(this,ResultActivity.class);
+            Intent intent = new Intent(this, ResultActivity.class);
             startActivity(intent);
+            finish();
         });
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();

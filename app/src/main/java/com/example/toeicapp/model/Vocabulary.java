@@ -5,8 +5,8 @@ public class Vocabulary {
     private String pronunciation;
     private String meaning;
     private String audio_path;
+    private boolean isFavorite;
 
-    // Getters and setters
     public String getWord() {
         return word;
     }
@@ -38,5 +38,12 @@ public class Vocabulary {
     public void setAudioPath(String audio_path) {
         this.audio_path = audio_path;
     }
-}
 
+    public boolean isFavorite() {
+        return isFavorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        isFavorite = favorite;
+    }
+}
