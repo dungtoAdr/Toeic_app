@@ -55,6 +55,9 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.MyViewHold
                 holder.answer.setText("Đáp án đúng: " + question.getCorrect_option() + " ✅");
                 holder.number_question.setText("Câu hỏi " + (position + 1));
             }
+        } else {
+            holder.answer.setText("Đáp án đúng: " + question.getCorrect_option() + " ❌");
+            holder.number_question.setText("Câu hỏi " + (position + 1));
         }
 
         holder.setItemClickListener((view, position1, isLongClick) -> {

@@ -112,7 +112,6 @@ public class FragmentHome extends Fragment {
 
     private void onClickItemListening() {
         item_listening.setOnClickListener(v -> {
-            Toast.makeText(getContext(), "Listening", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getContext(), ListenningActivity.class);
             startActivity(intent);
         });
@@ -120,7 +119,6 @@ public class FragmentHome extends Fragment {
 
     private void onClickItemReading() {
         item_reading.setOnClickListener(v -> {
-            Toast.makeText(getContext(), "Reading", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getContext(), ReadingActivity.class);
             startActivity(intent);
         });

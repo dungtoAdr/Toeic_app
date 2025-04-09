@@ -75,7 +75,6 @@ public class FragmentAccount extends Fragment {
         line_history.setOnClickListener(v -> {
             Intent intent = new Intent(getContext(), HistoryActivity.class);
             startActivity(intent);
-            Toast.makeText(getContext(),"History",Toast.LENGTH_SHORT).show();
         });
         line_policy.setOnClickListener(v ->{
             Intent intent = new Intent(getContext(), PolicyActivity.class);

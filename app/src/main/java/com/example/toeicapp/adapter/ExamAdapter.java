@@ -2,12 +2,14 @@ package com.example.toeicapp.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.toeicapp.Interface.ItemClickListener;
@@ -52,6 +54,7 @@ public class ExamAdapter extends RecyclerView.Adapter<ExamAdapter.MyViewHolder> 
     public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView txt_name_test;
         private ItemClickListener itemClickListener;
+        private CardView cardView;
 
         public void setItemClickListener(ItemClickListener itemClickListener) {
             this.itemClickListener = itemClickListener;
